@@ -1,0 +1,8 @@
+.idea/
+project/project/
+project/target/
+rtl/*.v
+simWorkspace/
+target/
+tmp/
+verbose.log
