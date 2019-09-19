@@ -3,7 +3,7 @@ package FPVE.c03ex02
 import spinal.core._
 
 case class PriorityEncoderMux(width: Int) extends Component {
-  var nbit = log2Up(width + 1)
+  val nbit = log2Up(width + 1)
 
   val io = new Bundle {
     val request = in  Bits (width bits)
@@ -31,7 +31,7 @@ case class PriorityEncoderMux(width: Int) extends Component {
 
 class PriorityEncoder12b extends Component {
   val width = 12
-  var nbit = log2Up(width + 1)
+  val nbit = log2Up(width + 1)
 
   val io = new Bundle {
     val request = in  Bits (width bits)
@@ -82,7 +82,7 @@ class PriorityEncoder12b extends Component {
 }
 
 case class DualPriorityEncoderMux(width: Int) extends Component {
-  var nbit = log2Up(width + 1)
+  val nbit = log2Up(width + 1)
 
   val io = new Bundle {
     val request = in  Bits (width bits)
@@ -90,12 +90,12 @@ case class DualPriorityEncoderMux(width: Int) extends Component {
     val second  = out UInt (nbit bits)
   }
 
-  var priorityEncoderFirst = PriorityEncoderMux(width = width)
+  val priorityEncoderFirst = PriorityEncoderMux(width = width)
   priorityEncoderFirst.io.request := io.request
 
   io.first := priorityEncoderFirst.io.encode
 
-  var priorityEncoderSecond = PriorityEncoderMux(width = width)
+  val priorityEncoderSecond = PriorityEncoderMux(width = width)
   priorityEncoderSecond.io.request := io.request & priorityEncoderFirst.io.mask.resized
 
   io.second := priorityEncoderSecond.io.encode
@@ -103,7 +103,7 @@ case class DualPriorityEncoderMux(width: Int) extends Component {
 
 class DualPriorityEncoder12b extends Component {
   val width = 12
-  var nbit = log2Up(width + 1)
+  val nbit = log2Up(width + 1)
 
   val io = new Bundle {
     val request = in  Bits (width bits)
@@ -111,12 +111,12 @@ class DualPriorityEncoder12b extends Component {
     val second  = out UInt (nbit bits)
   }
 
-  var priorityEncoderFirst = new PriorityEncoder12b
+  val priorityEncoderFirst = new PriorityEncoder12b
   priorityEncoderFirst.io.request := io.request
 
   io.first := priorityEncoderFirst.io.encode
 
-  var priorityEncoderSecond = new PriorityEncoder12b
+  val priorityEncoderSecond = new PriorityEncoder12b
   priorityEncoderSecond.io.request := io.request & priorityEncoderFirst.io.mask.resized
 
   io.second := priorityEncoderSecond.io.encode

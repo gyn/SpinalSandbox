@@ -18,9 +18,9 @@ class GreaterThan2b extends Component {
     val b   = in  Bits (2 bits)
   }
 
-  var p1 =  io.a(1) && !io.b(1)
-  var p2 = !io.a(1) &&  io.a(0) && !io.b(1) && !io.b(0)
-  var p3 =  io.a(1) &&  io.a(0) &&  io.b(1) && !io.b(0)
+  val p1 =  io.a(1) && !io.b(1)
+  val p2 = !io.a(1) &&  io.a(0) && !io.b(1) && !io.b(0)
+  val p3 =  io.a(1) &&  io.a(0) &&  io.b(1) && !io.b(0)
 
   io.gt := p1 || p2 || p3
 }
@@ -41,10 +41,10 @@ class Equal2b extends Component {
     val b   = in  Bits (2 bits)
   }
 
-  var p1 = !io.a(1) && !io.a(0) && !io.b(1) && !io.b(0)
-  var p2 = !io.a(1) &&  io.a(0) && !io.b(1) &&  io.b(0)
-  var p3 =  io.a(1) && !io.a(0) &&  io.b(1) && !io.b(0)
-  var p4 =  io.a(1) &&  io.a(0) &&  io.b(1) &&  io.b(0)
+  val p1 = !io.a(1) && !io.a(0) && !io.b(1) && !io.b(0)
+  val p2 = !io.a(1) &&  io.a(0) && !io.b(1) &&  io.b(0)
+  val p3 =  io.a(1) && !io.a(0) &&  io.b(1) && !io.b(0)
+  val p4 =  io.a(1) &&  io.a(0) &&  io.b(1) &&  io.b(0)
 
   io.eq := p1 || p2 || p3 || p4
 }
@@ -84,20 +84,20 @@ class GreaterThan4b extends Component {
     val b   = in  Bits (4 bits)
   }
 
-  var greaterThan2bHi = new GreaterThan2b
+  val greaterThan2bHi = new GreaterThan2b
   greaterThan2bHi.io.a := io.a(3 downto 2)
   greaterThan2bHi.io.b := io.b(3 downto 2)
 
-  var greaterThan2bLow = new GreaterThan2b
+  val greaterThan2bLow = new GreaterThan2b
   greaterThan2bLow.io.a := io.a(1 downto 0)
   greaterThan2bLow.io.b := io.b(1 downto 0)
 
-  var equal2bHi = new Equal2b
+  val equal2bHi = new Equal2b
   equal2bHi.io.a := io.a(3 downto 2)
   equal2bHi.io.b := io.b(3 downto 2)
 
-  var p1 = greaterThan2bHi.io.gt
-  var p2 = equal2bHi.io.eq && greaterThan2bLow.io.gt
+  val p1 = greaterThan2bHi.io.gt
+  val p2 = equal2bHi.io.eq && greaterThan2bLow.io.gt
 
   io.gt := p1 || p2
 }

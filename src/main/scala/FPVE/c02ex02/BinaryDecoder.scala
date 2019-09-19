@@ -54,11 +54,11 @@ class BinaryDecoder3b extends Component {
     val sel     = in  Bits (3 bits)
   }
 
-  var binaryDecoder2bHi = new BinaryDecoder2b
+  val binaryDecoder2bHi = new BinaryDecoder2b
   binaryDecoder2bHi.io.sel := io.sel(1 downto 0)
   binaryDecoder2bHi.io.en := io.en && io.sel(2)
 
-  var binaryDecoder2bLow = new BinaryDecoder2b
+  val binaryDecoder2bLow = new BinaryDecoder2b
   binaryDecoder2bLow.io.sel := io.sel(1 downto 0)
   binaryDecoder2bLow.io.en := io.en && !io.sel(2)
 
@@ -108,11 +108,11 @@ class BinaryDecoder4b extends Component {
     val sel     = in  Bits (4 bits)
   }
 
-  var binaryDecoder2bSel = new BinaryDecoder2b
+  val binaryDecoder2bSel = new BinaryDecoder2b
   binaryDecoder2bSel.io.sel := io.sel(3 downto 2)
   binaryDecoder2bSel.io.en := io.en
 
-  var enSel = binaryDecoder2bSel.io.output
+  val enSel = binaryDecoder2bSel.io.output
 
   val width = 4
   val BinaryDecoder2bArray = Array.fill(width)(new BinaryDecoder2b)

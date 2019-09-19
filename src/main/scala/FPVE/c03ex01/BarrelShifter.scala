@@ -16,7 +16,7 @@ import spinal.lib._
 //
 //
 case class BarrelShifterLeft(width: Int) extends Component {
-  var nbit = log2Up(width)
+  val nbit = log2Up(width)
 
   val io = new Bundle {
     val a   = in  Bits(width bits)
@@ -24,13 +24,13 @@ case class BarrelShifterLeft(width: Int) extends Component {
     val y   = out Bits(width bits)
   }
 
-  var t = Vec(Bits(width bits), nbit + 1)
+  val t = Vec(Bits(width bits), nbit + 1)
 
   t(0) := io.a
 
   for (i <- 0 until nbit) {
     when (io.amt(i)) {
-      var limit = 1 << i
+      val limit = 1 << i
       t(i+1) := t(i)(width - limit - 1 downto 0) ## t(i)(width - 1 downto width - limit)
     } otherwise {
       t(i+1) := t(i)
@@ -41,7 +41,7 @@ case class BarrelShifterLeft(width: Int) extends Component {
 }
 
 case class BarrelShifterRight(width: Int) extends Component {
-  var nbit = log2Up(width)
+  val nbit = log2Up(width)
 
   val io = new Bundle {
     val a   = in  Bits(width bits)
@@ -49,13 +49,13 @@ case class BarrelShifterRight(width: Int) extends Component {
     val y   = out Bits(width bits)
   }
 
-  var t = Vec(Bits(width bits), nbit + 1)
+  val t = Vec(Bits(width bits), nbit + 1)
 
   t(0) := io.a
 
   for (i <- 0 until nbit) {
     when (io.amt(i)) {
-      var limit = 1 << i
+      val limit = 1 << i
       t(i+1) := t(i)(limit - 1 downto 0) ## t(i)(width - 1 downto limit)
     } otherwise {
       t(i+1) := t(i)
@@ -66,7 +66,7 @@ case class BarrelShifterRight(width: Int) extends Component {
 }
 
 case class BarrelShifter(width: Int) extends Component {
-  var nbit = log2Up(width)
+  val nbit = log2Up(width)
 
   val io = new Bundle {
     val a   = in  Bits(width bits)
@@ -75,11 +75,11 @@ case class BarrelShifter(width: Int) extends Component {
     val y   = out Bits(width bits)
   }
 
-  var barrelShifterRight = BarrelShifterRight(width = width)
+  val barrelShifterRight = BarrelShifterRight(width = width)
   barrelShifterRight.io.a := io.a
   barrelShifterRight.io.amt := io.amt
 
-  var barrelShifterLeft = BarrelShifterLeft(width = width)
+  val barrelShifterLeft = BarrelShifterLeft(width = width)
   barrelShifterLeft.io.a := io.a
   barrelShifterLeft.io.amt := io.amt
 
@@ -91,7 +91,7 @@ case class BarrelShifter(width: Int) extends Component {
 }
 
 case class BarrelShifterByReverse(width: Int) extends Component {
-  var nbit = log2Up(width)
+  val nbit = log2Up(width)
 
   val io = new Bundle {
     val a   = in  Bits(width bits)
@@ -99,7 +99,7 @@ case class BarrelShifterByReverse(width: Int) extends Component {
     var lr  = in  Bool
     val y   = out Bits(width bits)
   }
-  var barrelShifterRight = BarrelShifterRight(width = width)
+  val barrelShifterRight = BarrelShifterRight(width = width)
   barrelShifterRight.io.amt := io.amt
 
   when (io.lr) {
