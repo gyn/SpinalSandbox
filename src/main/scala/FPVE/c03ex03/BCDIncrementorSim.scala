@@ -19,10 +19,10 @@ object BCDCellSim {
 
         if (i < 10) {
           assert(dut.io.bcd.toInt == sum)
-          assert(dut.io.co.toBoolean == false)
+          assert(!dut.io.co.toBoolean)
         } else {
           assert(dut.io.bcd.toInt == (sum - 10))
-          assert(dut.io.co.toBoolean == true)
+          assert(dut.io.co.toBoolean)
         }
       }
 
@@ -39,10 +39,10 @@ object BCDCellSim {
 
         if (i < 10) {
           assert(dut.io.bcd.toInt == sum)
-          assert(dut.io.co.toBoolean == false)
+          assert(!dut.io.co.toBoolean)
         } else {
           assert(dut.io.bcd.toInt == (sum - 10))
-          assert(dut.io.co.toBoolean == true)
+          assert(dut.io.co.toBoolean)
         }
       }
 

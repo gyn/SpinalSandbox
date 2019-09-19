@@ -17,13 +17,16 @@ object FPGreaterThanSim {
       dut.io.frac2 #= 0
 
       val signLimit = 16
-      for (i <- 0 to signLimit) {
+      var signIndex = 0
+      while (signIndex < signLimit) {
         dut.io.sign1 #= Random.nextBoolean()
         dut.io.sign2 #= Random.nextBoolean()
 
         sleep(1)
 
-        assert(dut.io.gt.toBoolean == false)
+        assert(!dut.io.gt.toBoolean)
+
+        signIndex += 1
       }
 
       sleep(1)
@@ -31,8 +34,9 @@ object FPGreaterThanSim {
       //
       // Random
       //
-      val limit = 1000000
-      for (i <- 0 to limit) {
+      val randomLimit = 1000000
+      var randomIndex = 0
+      while (randomIndex < randomLimit) {
         val sign1 = Random.nextBoolean()
         val r1    = Random.nextInt(128)
         val frac1 = if (r1 != 0) 0x80 + r1 else 0
@@ -55,6 +59,8 @@ object FPGreaterThanSim {
         val fp2 = if (sign2) -1 * frac2 * (1<<exp2) else frac2 * (1<<exp2)
 
         assert(dut.io.gt.toBoolean == (fp1 > fp2))
+
+        randomIndex += 1
       }
 
       sleep(1)
