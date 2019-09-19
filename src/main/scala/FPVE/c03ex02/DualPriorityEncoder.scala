@@ -15,7 +15,7 @@ case class PriorityEncoderMux(width: Int) extends Component {
 
   def ffs(x : Int) : Int = 32 - Integer.numberOfLeadingZeros(x)
 
-  def mask(x : Int) : Int = if (x > 0) ((1 << (x - 1)) - 1) else 0
+  def mask(x : Int) : Int = if (x > 0) (1 << (x - 1)) - 1 else 0
 
   //
   //

@@ -6,7 +6,7 @@ import spinal.core.sim._
 object PriorityEncoder12bSim {
   def ffs(x : Int) : Int = 32 - Integer.numberOfLeadingZeros(x)
 
-  def mask(x : Int) : Int = if (x > 0) ((1 << (x - 1)) - 1) else 0
+  def mask(x : Int) : Int = if (x > 0) (1 << (x - 1)) - 1 else 0
 
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(new PriorityEncoder12b){dut =>
@@ -29,7 +29,7 @@ object PriorityEncoder12bSim {
 object PriorityEncoder12bMuxSim {
   def ffs(x : Int) : Int = 32 - Integer.numberOfLeadingZeros(x)
 
-  def mask(x : Int) : Int = if (x > 0) ((1 << (x - 1)) - 1) else 0
+  def mask(x : Int) : Int = if (x > 0) (1 << (x - 1)) - 1 else 0
 
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(PriorityEncoderMux(width = 12)){dut =>
@@ -52,7 +52,7 @@ object PriorityEncoder12bMuxSim {
 object DualPriorityEncoderSim {
   def ffs(x : Int) : Int = 32 - Integer.numberOfLeadingZeros(x)
 
-  def mask(x : Int) : Int = if (x > 0) ((1 << (x - 1)) - 1) else 0
+  def mask(x : Int) : Int = if (x > 0) (1 << (x - 1)) - 1 else 0
 
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(new DualPriorityEncoder12b){dut =>
@@ -75,7 +75,7 @@ object DualPriorityEncoderSim {
 object DualPriorityEncoderMuxSim {
   def ffs(x : Int) : Int = 32 - Integer.numberOfLeadingZeros(x)
 
-  def mask(x : Int) : Int = if (x > 0) ((1 << (x - 1)) - 1) else 0
+  def mask(x : Int) : Int = if (x > 0) (1 << (x - 1)) - 1 else 0
 
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(DualPriorityEncoderMux(width = 12)){dut =>
