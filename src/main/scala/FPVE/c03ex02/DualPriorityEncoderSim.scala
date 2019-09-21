@@ -45,7 +45,7 @@ object PriorityEncoder12bMuxSim {
         val expectedMask = Utils.mask(expectedEncode)
         val errorMessage = "Failed when request = %x, expected %d and %x, output %d and %x".format(
           i, expectedEncode, expectedMask, dut.io.encode.toInt, dut.io.mask.toInt)
-        assert(dut.io.encode.toInt == expectedEncode && dut.io.mask.toInt == expectedMask)
+        assert(dut.io.encode.toInt == expectedEncode && dut.io.mask.toInt == expectedMask, errorMessage)
       }
 
       sleep(1)
@@ -67,7 +67,7 @@ object DualPriorityEncoderSim {
         val expectedSecond = Utils.ffs(i & Utils.mask(expectedFirst))
         val errorMessage = "Failed when request = %x, expected %d and %d, output %d and %d".format(
           i, expectedFirst, expectedSecond, dut.io.first.toInt, dut.io.second.toInt)
-        assert(dut.io.first.toInt == expectedFirst && dut.io.second.toInt == expectedSecond)
+        assert(dut.io.first.toInt == expectedFirst && dut.io.second.toInt == expectedSecond, errorMessage)
       }
 
       sleep(1)
@@ -89,7 +89,7 @@ object DualPriorityEncoderMuxSim {
         val expectedSecond = Utils.ffs(i & Utils.mask(expectedFirst))
         val errorMessage = "Failed when request = %x, expected %d and %d, output %d and %d".format(
           i, expectedFirst, expectedSecond, dut.io.first.toInt, dut.io.second.toInt)
-        assert(dut.io.first.toInt == expectedFirst && dut.io.second.toInt == expectedSecond)
+        assert(dut.io.first.toInt == expectedFirst && dut.io.second.toInt == expectedSecond, errorMessage)
       }
 
       sleep(1)

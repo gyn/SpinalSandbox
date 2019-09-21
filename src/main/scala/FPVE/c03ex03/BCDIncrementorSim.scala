@@ -36,9 +36,9 @@ object BCDCellSim {
         val sum = i + 1
         val errorMessage = "Faild when ci true, hex %d, bcd %d, co %b".format(i, dut.io.bcd.toInt, dut.io.co.toBoolean)
         if (i < 10) {
-          assert(dut.io.bcd.toInt == sum && !dut.io.co.toBoolean)
+          assert(dut.io.bcd.toInt == sum && !dut.io.co.toBoolean, errorMessage)
         } else {
-          assert(dut.io.bcd.toInt == (sum - 10) && dut.io.co.toBoolean)
+          assert(dut.io.bcd.toInt == (sum - 10) && dut.io.co.toBoolean, errorMessage)
         }
       }
 
