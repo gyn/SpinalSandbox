@@ -31,9 +31,9 @@ case class BarrelShifterLeft(width: Int) extends Component {
   for (i <- 0 until nbit) {
     when (io.amt(i)) {
       val limit = 1 << i
-      t(i+1) := t(i)(width - limit - 1 downto 0) ## t(i)(width - 1 downto width - limit)
+      t(i + 1) := t(i)(width - limit - 1 downto 0) ## t(i)(width - 1 downto width - limit)
     } otherwise {
-      t(i+1) := t(i)
+      t(i + 1) := t(i)
     }
   }
 
@@ -56,9 +56,9 @@ case class BarrelShifterRight(width: Int) extends Component {
   for (i <- 0 until nbit) {
     when (io.amt(i)) {
       val limit = 1 << i
-      t(i+1) := t(i)(limit - 1 downto 0) ## t(i)(width - 1 downto limit)
+      t(i + 1) := t(i)(limit - 1 downto 0) ## t(i)(width - 1 downto limit)
     } otherwise {
-      t(i+1) := t(i)
+      t(i + 1) := t(i)
     }
   }
 

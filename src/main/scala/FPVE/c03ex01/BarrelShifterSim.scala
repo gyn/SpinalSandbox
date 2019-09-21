@@ -6,7 +6,7 @@ import spinal.core.sim._
 object BarrelShifterLeftSim {
   def main(args: Array[String]) {
     val width = 32
-    SimConfig.withWave.doSim(BarrelShifterLeft(width = width)){dut =>
+    SimConfig.withWave.doSim(BarrelShifterLeft(width = width)) { dut =>
       val limit = width - 1
 
       val scalar = BigInt("00000001", 16)
@@ -19,7 +19,7 @@ object BarrelShifterLeftSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == scalar << a)
+        assert(dut.io.y.toBigInt == scalar << a, "Failed when %x != %x << %d".format(dut.io.y.toBigInt, scalar, a))
       }
     }
   }
@@ -28,7 +28,7 @@ object BarrelShifterLeftSim {
 object BarrelShifterRightSim {
   def main(args: Array[String]) {
     val width = 32
-    SimConfig.withWave.doSim(BarrelShifterRight(width = width)){dut =>
+    SimConfig.withWave.doSim(BarrelShifterRight(width = width)) { dut =>
       val limit = width - 1
 
       val scalar = BigInt("80000000", 16)
@@ -40,7 +40,7 @@ object BarrelShifterRightSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == scalar >> a)
+        assert(dut.io.y.toBigInt == scalar >> a, "Failed when %x != %x >> %d".format(dut.io.y.toBigInt, scalar, a))
       }
     }
   }
@@ -49,7 +49,7 @@ object BarrelShifterRightSim {
 object BarrelShifterSim {
   def main(args: Array[String]) {
     val width = 32
-    SimConfig.withWave.doSim(BarrelShifter(width = width)){dut =>
+    SimConfig.withWave.doSim(BarrelShifter(width = width)) { dut =>
       val limit = width - 1
 
       //
@@ -65,7 +65,7 @@ object BarrelShifterSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == rscalar >> a)
+        assert(dut.io.y.toBigInt == rscalar >> a, "Failed when %x != %x >> %d".format(dut.io.y.toBigInt, rscalar, a))
       }
 
       sleep(1)
@@ -83,7 +83,7 @@ object BarrelShifterSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == lscalar << a)
+        assert(dut.io.y.toBigInt == lscalar << a, "Failed when %x != %x << %d".format(dut.io.y.toBigInt, lscalar, a))
       }
 
       sleep(1)
@@ -94,7 +94,7 @@ object BarrelShifterSim {
 object BarrelShifterByReverseSim {
   def main(args: Array[String]) {
     val width = 32
-    SimConfig.withWave.doSim(BarrelShifterByReverse(width = width)){dut =>
+    SimConfig.withWave.doSim(BarrelShifterByReverse(width = width)) { dut =>
       val limit = width - 1
 
       //
@@ -110,7 +110,7 @@ object BarrelShifterByReverseSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == rscalar >> a)
+        assert(dut.io.y.toBigInt == rscalar >> a, "Failed when %x != %x >> %d".format(dut.io.y.toBigInt, rscalar, a))
       }
 
       sleep(1)
@@ -128,7 +128,7 @@ object BarrelShifterByReverseSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == lscalar << a)
+        assert(dut.io.y.toBigInt == lscalar << a, "Failed when %x != %x << %d".format(dut.io.y.toBigInt, lscalar, a))
       }
 
       sleep(1)
