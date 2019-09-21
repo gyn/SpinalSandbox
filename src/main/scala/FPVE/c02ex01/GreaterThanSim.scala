@@ -5,7 +5,7 @@ import spinal.core.sim._
 
 object GreaterThan2bSim {
   def main(args: Array[String]) {
-    SimConfig.withWave.doSim(new GreaterThan2b){dut =>
+    SimConfig.withWave.doSim(new GreaterThan2b) { dut =>
       val limit = 4 - 1
 
       for (a <- 0 to limit) {
@@ -15,7 +15,7 @@ object GreaterThan2bSim {
 
           sleep(1)
 
-          assert(dut.io.gt.toBoolean == (a > b))
+          assert(dut.io.gt.toBoolean == (a > b), "Failed when a = %d, b = %d".format(a, b))
         }
       }
 
@@ -26,7 +26,7 @@ object GreaterThan2bSim {
 
 object Equal2bSim {
   def main(args: Array[String]) {
-    SimConfig.withWave.doSim(new Equal2b){dut =>
+    SimConfig.withWave.doSim(new Equal2b) { dut =>
       val limit = 4 - 1
 
       for (a <- 0 to limit) {
@@ -36,7 +36,7 @@ object Equal2bSim {
 
           sleep(1)
 
-          assert(dut.io.eq.toBoolean == (a == b))
+          assert(dut.io.eq.toBoolean == (a == b), "Failed when a = %d, b = %d".format(a, b))
         }
       }
 
@@ -47,7 +47,7 @@ object Equal2bSim {
 
 object GreaterThan4bSim {
   def main(args: Array[String]) {
-    SimConfig.withWave.doSim(new GreaterThan4b){dut =>
+    SimConfig.withWave.doSim(new GreaterThan4b) { dut =>
       val limit = 16 - 1
 
       for (a <- 0 to limit) {
@@ -57,7 +57,7 @@ object GreaterThan4bSim {
 
           sleep(1)
 
-          assert(dut.io.gt.toBoolean == (a > b))
+          assert(dut.io.gt.toBoolean == (a > b), "Failed when a = %d, b = %d".format(a, b))
         }
       }
 
