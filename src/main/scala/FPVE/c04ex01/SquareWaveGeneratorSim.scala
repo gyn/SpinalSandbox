@@ -54,7 +54,8 @@ object SquareWaveGeneratorSim {
             expectedToggles = 2 * times
           }
 
-          assert(highs == expectedHighs && toggles == expectedToggles)
+          val errorMessage = "Failed when m = %d, n = %d".format(i, j)
+          assert(highs == expectedHighs && toggles == expectedToggles, errorMessage)
         }
       }
     }
