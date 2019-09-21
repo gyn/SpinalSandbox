@@ -13,9 +13,9 @@ case class PriorityEncoderMux(width: Int) extends Component {
 
   val limit = 1 << width
 
-  def ffs(x : Int) : Int = 32 - Integer.numberOfLeadingZeros(x)
+  def ffs(x: Int): Int = 32 - Integer.numberOfLeadingZeros(x)
 
-  def mask(x : Int) : Int = if (x > 0) (1 << (x - 1)) - 1 else 0
+  def mask(x: Int): Int = if (x > 0) (1 << (x - 1)) - 1 else 0
 
   //
   //
