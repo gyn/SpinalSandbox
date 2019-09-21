@@ -4,6 +4,6 @@ import spinal.core._
 
 object SquareWaveGeneratorMain {
   def main(args: Array[String]) {
-    SpinalConfig(targetDirectory = "rtl").generateVerilog(SquareWaveGenerator(Scalar = 100/20, WBits = 4))
+    SpinalConfig(targetDirectory = "rtl").generateVerilog(SquareWaveGenerator(configBits = 4))
   }
 }
