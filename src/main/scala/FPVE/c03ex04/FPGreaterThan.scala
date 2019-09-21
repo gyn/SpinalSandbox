@@ -23,12 +23,10 @@ class FPGreaterThan extends Component {
   when(!(io.exp1 ## io.frac1).orR) {
     sign1Fixed \= False
   }
-
   var sign2Fixed = io.sign2
   when(!(io.exp2 ## io.frac2).orR) {
     sign2Fixed \= False
   }
-
   //
   // And also check the relational of {exp1, frac1} and {exp2, frac2}
   //
@@ -36,7 +34,6 @@ class FPGreaterThan extends Component {
   when ((io.exp1 ## io.frac1).asUInt === (io.exp2 ## io.frac2).asUInt) {
     eqWithoutSign.set()
   }
-
   val gtWithoutSign = False
   when ((io.exp1 ## io.frac1).asUInt > (io.exp2 ## io.frac2).asUInt) {
     gtWithoutSign.set()
@@ -47,7 +44,7 @@ class FPGreaterThan extends Component {
   //
   val sel = sign1Fixed ## sign2Fixed ## eqWithoutSign ## gtWithoutSign
   io.gt := sel.mux(
-    0x0 -> False,            // positive, positive, n1 < n2 for 0
+    0x0 -> False,           // positive, positive, n1 < n2 for 0
     0x1 -> True,            // positive, positive, n1 > n2 for 1
     0x2 -> False,           // positive, positive, n1 == n2 for 2,3
     0x3 -> False,           //

@@ -23,8 +23,9 @@ object FPGreaterThanSim {
         dut.io.sign2 #= Random.nextBoolean()
 
         sleep(1)
-
-        assert(!dut.io.gt.toBoolean)
+        val errorMessage = "Failed when %b, %b, ouput %b".format(
+          dut.io.sign1.toBoolean, dut.io.sign2.toBoolean, dut.io.gt.toBoolean)
+        assert(!dut.io.gt.toBoolean, errorMessage)
 
         signIndex += 1
       }
@@ -34,17 +35,17 @@ object FPGreaterThanSim {
       //
       // Random
       //
-      val randomLimit = 1000000
+      val randomLimit = 100000
       var randomIndex = 0
       while (randomIndex < randomLimit) {
         val sign1 = Random.nextBoolean()
-        val r1    = Random.nextInt(128)
+        val r1 = Random.nextInt(128)
         val frac1 = if (r1 != 0) 0x80 + r1 else 0
-        val exp1  = if (r1 != 0) Random.nextInt(15) else 0
+        val exp1 = if (r1 != 0) Random.nextInt(15) else 0
         val sign2 = Random.nextBoolean()
-        val r2    = Random.nextInt(128)
+        val r2 = Random.nextInt(128)
         val frac2 = if (r2 != 0) 0x80 + r2 else 0
-        val exp2  = if (r2 != 0) Random.nextInt(15) else 0
+        val exp2 = if (r2 != 0) Random.nextInt(15) else 0
 
         dut.io.sign1 #= sign1
         dut.io.exp1 #= exp1
@@ -55,10 +56,11 @@ object FPGreaterThanSim {
 
         sleep(1)
 
-        val fp1 = if (sign1) -1 * frac1 * (1<<exp1) else frac1 * (1<<exp1)
-        val fp2 = if (sign2) -1 * frac2 * (1<<exp2) else frac2 * (1<<exp2)
-
-        assert(dut.io.gt.toBoolean == (fp1 > fp2))
+        val fp1 = if (sign1) -1 * frac1 * (1 << exp1) else frac1 * (1 << exp1)
+        val fp2 = if (sign2) -1 * frac2 * (1 << exp2) else frac2 * (1 << exp2)
+        val errorMessage = "Failed when %b-%d-%d, %b-%d-%d, ouput %b".format(
+          sign1, frac1, exp1, sign2, frac2, exp2, dut.io.gt.toBoolean)
+        assert(dut.io.gt.toBoolean == (fp1 > fp2), errorMessage)
 
         randomIndex += 1
       }
