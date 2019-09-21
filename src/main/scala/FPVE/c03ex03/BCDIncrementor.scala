@@ -16,14 +16,14 @@ class BCDCell extends Component {
 
   when (sum < 10) {
     io.bcd := sum(NIBBLE - 1 downto 0)
-    io.co  := False
+    io.co := False
   } otherwise {
     io.bcd := sum(NIBBLE - 1 downto 0) + 6
-    io.co  := True
+    io.co := True
   }
 }
 
-case class BCDIncrementor(Nr : Int) extends Component {
+case class BCDIncrementor(Nr: Int) extends Component {
   val NIBBLE = 4
 
   val io = new Bundle {
