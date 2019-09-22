@@ -12,11 +12,7 @@ case class PWMLEDDimmer(width: Int) extends Component {
   counterReg := counterReg + 1
 
   val outReg = Reg(Bool) init (False)
-  when (counterReg < io.w) {
-    outReg := True
-  } otherwise {
-    outReg := False
-  }
+  outReg := (counterReg < io.w) ? True | False
 
   io.signal := outReg
 }

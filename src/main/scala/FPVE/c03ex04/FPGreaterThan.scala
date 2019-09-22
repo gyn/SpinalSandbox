@@ -19,25 +19,13 @@ class FPGreaterThan extends Component {
   //
   //  1st stage : fixed the sign bit for -0 to simplify the condition
   //
-  var sign1Fixed = io.sign1
-  when(!(io.exp1 ## io.frac1).orR) {
-    sign1Fixed \= False
-  }
-  var sign2Fixed = io.sign2
-  when(!(io.exp2 ## io.frac2).orR) {
-    sign2Fixed \= False
-  }
+  var sign1Fixed = ((io.exp1 ## io.frac1).orR) ? io.sign1 | False
+  var sign2Fixed = ((io.exp2 ## io.frac2).orR) ? io.sign2 | False
   //
   // And also check the relational of {exp1, frac1} and {exp2, frac2}
   //
-  val eqWithoutSign = False
-  when ((io.exp1 ## io.frac1).asUInt === (io.exp2 ## io.frac2).asUInt) {
-    eqWithoutSign.set()
-  }
-  val gtWithoutSign = False
-  when ((io.exp1 ## io.frac1).asUInt > (io.exp2 ## io.frac2).asUInt) {
-    gtWithoutSign.set()
-  }
+  val eqWithoutSign = ((io.exp1 @@ io.frac1) === (io.exp2 @@ io.frac2)) ? True | False
+  val gtWithoutSign = ((io.exp1 @@ io.frac1) > (io.exp2 @@ io.frac2)) ? True | False
 
   //
   // 2nd stage : check sign1Fixed, sign2Fixed, eqWithoutSign and gtWithoutSign
