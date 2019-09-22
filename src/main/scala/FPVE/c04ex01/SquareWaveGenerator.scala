@@ -21,21 +21,13 @@ case class SquareWaveGenerator(configBits: Int) extends Component {
   val limitM = (io.m @@ U"2'0").resize(width bits) + io.m
 
   val counterReg = Reg(UInt(width bits)) init (0)
-  when (counterReg === (limitSum - 1)) {
-    counterReg := 0
-  } otherwise {
-    counterReg := counterReg + 1
-  }
+  counterReg := (counterReg === (limitSum - 1)) ? U(0) | counterReg + 1
 
   //
   // m determines the signal, which means the signal would be always 0 when m is 0
   //
   val signalReg = Reg(Bool) init (False)
-  when (counterReg < limitM) {
-    signalReg := True
-  } otherwise {
-    signalReg := False
-  }
+  signalReg := (counterReg < limitM) ? True | False
 
   io.signal := signalReg
 }

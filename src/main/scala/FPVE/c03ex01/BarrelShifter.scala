@@ -83,11 +83,7 @@ case class BarrelShifter(width: Int) extends Component {
   barrelShifterLeft.io.a := io.a
   barrelShifterLeft.io.amt := io.amt
 
-  when (io.lr) {
-    io.y := barrelShifterRight.io.y
-  } otherwise {
-    io.y := barrelShifterLeft.io.y
-  }
+  io.y := (io.lr) ? barrelShifterRight.io.y | barrelShifterLeft.io.y
 }
 
 case class BarrelShifterByReverse(width: Int) extends Component {
