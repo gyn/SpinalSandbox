@@ -18,7 +18,7 @@ object BinaryDecoder2Sim {
 
         sleep(1)
 
-        assert(dut.io.output.toInt != 0, s"when a = ${a} and en = ${dut.io.en.toBoolean}, output = 1")
+        assert(dut.io.output.toInt != 0, s"when a = $a and en = ${dut.io.en.toBoolean}, output = 1")
       }
 
       sleep(1)
@@ -34,7 +34,7 @@ object BinaryDecoder2Sim {
         sleep(1)
 
         assert(dut.io.output.toInt == (1 << a),
-          s"when a = ${a} and en = ${dut.io.en.toBoolean}, output = ${dut.io.output.toInt}")
+          s"when a = $a and en = ${dut.io.en.toBoolean}, output = ${dut.io.output.toInt}")
       }
 
       sleep(1)
@@ -57,7 +57,7 @@ object BinaryDecoder3Sim {
 
         sleep(1)
 
-        assert(dut.io.output.toInt == 0, s"when a = ${a} and en = ${dut.io.en.toBoolean}, output = 1")
+        assert(dut.io.output.toInt == 0, s"when a = $a and en = ${dut.io.en.toBoolean}, output = 1")
       }
 
       sleep(1)
@@ -73,7 +73,7 @@ object BinaryDecoder3Sim {
         sleep(1)
 
         assert(dut.io.output.toInt == (1 << a),
-          s"when a = ${a} and en = ${dut.io.en.toBoolean}, output = ${dut.io.output.toInt}")
+          s"when a = $a and en = ${dut.io.en.toBoolean}, output = ${dut.io.output.toInt}")
       }
 
       sleep(1)
@@ -96,7 +96,8 @@ object BinaryDecoder4Sim {
 
         sleep(1)
 
-        assert(dut.io.output.toInt == 0, s"when a = ${a} and en = ${dut.io.en.toBoolean}, output = 1")
+        val errorMessage = s"when a = $a and en = ${dut.io.en.toBoolean}, output = ${dut.io.output.toInt}"
+        assert(dut.io.output.toInt == 0, errorMessage)
       }
 
       sleep(1)
@@ -111,8 +112,8 @@ object BinaryDecoder4Sim {
 
         sleep(1)
 
-        assert(dut.io.output.toInt == (1 << a),
-          s"when a = ${a} and en = ${dut.io.en.toBoolean}, output = ${dut.io.output.toInt}")
+        val errorMessage = s"when a = $a and en = ${dut.io.en.toBoolean}, output = ${dut.io.output.toInt}"
+        assert(dut.io.output.toInt == (1 << a), errorMessage)
       }
 
       sleep(1)

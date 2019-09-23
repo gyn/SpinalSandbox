@@ -83,7 +83,7 @@ case class BarrelShifter(width: Int) extends Component {
   barrelShifterLeft.io.a := io.a
   barrelShifterLeft.io.amt := io.amt
 
-  io.y := (io.lr) ? barrelShifterRight.io.y | barrelShifterLeft.io.y
+  io.y := io.lr ? barrelShifterRight.io.y | barrelShifterLeft.io.y
 }
 
 case class BarrelShifterByReverse(width: Int) extends Component {
@@ -97,7 +97,7 @@ case class BarrelShifterByReverse(width: Int) extends Component {
   }
   val barrelShifterRight = BarrelShifterRight(width = width)
   barrelShifterRight.io.amt := io.amt
-  barrelShifterRight.io.a := (io.lr) ? io.a | Reverse(io.a)
+  barrelShifterRight.io.a := io.lr ? io.a | Reverse(io.a)
 
-  io.y := (io.lr) ? barrelShifterRight.io.y | Reverse(barrelShifterRight.io.y)
+  io.y := io.lr ? barrelShifterRight.io.y | Reverse(barrelShifterRight.io.y)
 }

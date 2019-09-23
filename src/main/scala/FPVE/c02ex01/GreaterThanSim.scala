@@ -14,7 +14,7 @@ object GreaterThan2bSim {
 
         sleep(1)
 
-        assert(dut.io.gt.toBoolean == (a > b), s"when a = ${a}, b = ${b}")
+        assert(dut.io.gt.toBoolean == (a > b), s"when a = $a, b = $b")
       }
 
       sleep(1)
@@ -33,7 +33,7 @@ object Equal2bSim {
 
         sleep(1)
 
-        assert(dut.io.eq.toBoolean == (a == b), s"when a = ${a}, b = ${b}")
+        assert(dut.io.eq.toBoolean == (a == b), s"when a = $a, b = $b")
       }
 
       sleep(1)
@@ -52,7 +52,7 @@ object GreaterThan4bSim {
 
         sleep(1)
 
-        assert(dut.io.gt.toBoolean == (a > b), s"when a = ${a}, b = ${b}")
+        assert(dut.io.gt.toBoolean == (a > b), s"when a = $a, b = $b")
       }
 
       sleep(1)
