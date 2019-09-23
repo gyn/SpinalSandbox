@@ -4,7 +4,7 @@ import spinal.core._
 
 object GreaterThan2bMain {
   def main(args: Array[String]) {
-    SpinalConfig(targetDirectory = "rtl").generateVerilog(new GreaterThan2b)
+    SpinalConfig(targetDirectory = "rtl/c02ex01/01_greater_than_2b/rtl").generateVerilog(new GreaterThan2b)
   }
 }
 
@@ -16,6 +16,6 @@ object Equal2bMain {
 
 object GreaterThan4bMain {
   def main(args: Array[String]) {
-    SpinalConfig(targetDirectory = "rtl").generateVerilog(new GreaterThan4b)
+    SpinalConfig(targetDirectory = "rtl/c02ex01/05_greater_than_4b/rtl").generateVerilog(new GreaterThan4b)
   }
 }

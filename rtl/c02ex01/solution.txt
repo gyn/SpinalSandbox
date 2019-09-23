@@ -1,0 +1,68 @@
+The greater-than circuit compares two inputs, a and b, and asserts an output when a is greater than b. We want to create a 4-bit greater-than circuit from the bottom up and use only gate-level logical operators. Design the circuit as follows: 
+
+1.  Derive the truth table for a 2-bit greater-than circuit and obtain the logic expression in the sum-of-products format. Based on the expression, derive the HDL code using only logical operators. 
+
+The truth table for 2-bit greater than circuit is :
+
+    \gt\    a
+b           00      01      10      11
+00          0       1       1       1
+01          0       0       1       1
+10          0       0       0       1
+11          0       0       0       0
+
+The sum-of-products is :
+
+gt = (  a[1] & ~b[1] )                     +
+     (  a[1] &  b[1] ) & (  a[0] & ~b[0] ) +
+     ( ~a[1] & ~b[1] ) & (  a[0] & ~b[0] ) 
+
+So 01_greater_than_2b/rtl/greater_than_2b.sv could be done.
+
+2.  Derive a testbench for the 2-bit greater-than circuit. Perform a simulation and verify the correctness of the design. 
+
+Check 01_greater_than_2b/sim/greater_than_2b_tb.sv.
+
+3.  Use four switches as the inputs and one LED as the output. Synthesize the circuit and download the configuration file to the prototyping board. Verify its operation. 
+
+Swithes SW[3] to SW[2] for a[1:0], swithes SW[1] to SW[0] for b[1:0] and LEDR[0] for gt are used on DE2-115 board.
+
+4.  Use the 2-bit greater-than circuits and 2-bit equality comparators and a minimal number of "glue gates" to construct a 4-bit greater-than circuit. First draw a block diagram and then derive the structural HDL code according to the diagram. 
+
+Block diagram for 4-bit greater-than circuit is :
+
+                          +------------------------+
+     a[3:0]      a[3:2]   |                        |
+    +---------+---------->+ .a                     |                   +-----+
+     b[3:0]   |  b[3:2]   |    greater_than_2b .gt +------------------>+     |  gt
+    +------+------------->+ .b                     |                   | OR  +------>
+           |  |           |                        |               +-->+     |
+           |  |           +------------------------+               |   +-----+
+           |  |                                                    |
+           |  |                                                    |
+           |  |           +------------------------+               |
+           |  |  a[3:2]   |                        |               |
+           |  +---------->+ .a                     |      +-----+  |
+           |  |  b[3:2]   |       equal_2b     .eq +----->+     |  |
+           +------------->+ .b                     |      | AND +--+
+           |  |           |                        |  +-->+     |
+           |  |           +------------------------+  |   +-----+
+           |  |                                       |
+           |  |                                       |
+           |  |           +------------------------+  |
+           |  |  a[1:0]   |                        |  |
+           |  +---------->+ .a                     |  |
+           |     b[1:0]   |    greater_than_2b .gt +--+
+           +------------->+ .b                     |
+                          |                        |
+                          +------------------------+
+
+And then 05_greater_than_4b/rtl/greater_than_4b.sv could be done.
+
+5.  Derive a testbench for the 4-bit greater-than circuit. Perform a simulation and verify the correctness of the design. 
+
+Check 05_greater_than_4b/sim/greater_than_4b_tb.sv.
+
+6.  Use eight switches as the inputs and one LED as the output. Synthesize the circuit and download the configuration file to the prototyping board. Verify its operation. 
+
+Swithes SW[7] to SW[4] for a[3:0], swithes SW[3] to SW[0] for b[3:0] and LEDR[0] for gt are used on DE2-115 board.

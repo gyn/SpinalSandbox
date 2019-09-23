@@ -1,7 +1,14 @@
 .idea/
 project/project/
 project/target/
-rtl/*.v
+
+db
+*.rpt
+*.qws
+incremental_db
+output_files/
+simulation/
+
 simWorkspace/
 target/
 tmp/
