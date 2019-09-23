@@ -8,10 +8,10 @@ object PWMLEDDimmerSim {
     SimConfig.withWave.doSim(PWMLEDDimmer(width = 4)) { dut =>
       dut.clockDomain.forkStimulus(period = 20)
 
-      val limit = 16 - 1
+      val limit = 16
       val times = 4
       val resetPeroid = 36
-      for (i <- 0 to limit) {
+      for (i <- 0 until limit) {
         dut.clockDomain.assertReset()
         dut.io.w #= i
         sleep(resetPeroid)

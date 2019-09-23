@@ -12,9 +12,9 @@ object Utils {
 object PriorityEncoder12bSim {
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(new PriorityEncoder12b) { dut =>
-      val limit = 1 << 12 - 1
+      val limit = 1 << 12
 
-      for (i <- 0 to limit) {
+      for (i <- 0 until limit) {
         dut.io.request #= i
 
         sleep(1)
@@ -34,9 +34,9 @@ object PriorityEncoder12bSim {
 object PriorityEncoder12bMuxSim {
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(PriorityEncoderMux(width = 12)) { dut =>
-      val limit = 1 << 12 - 1
+      val limit = 1 << 12
 
-      for (i <- 0 to limit) {
+      for (i <- 0 until limit) {
         dut.io.request #= i
 
         sleep(1)
@@ -56,9 +56,9 @@ object PriorityEncoder12bMuxSim {
 object DualPriorityEncoderSim {
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(new DualPriorityEncoder12b) { dut =>
-      val limit = 1 << 12 - 1
+      val limit = 1 << 12
 
-      for (i <- 0 to limit) {
+      for (i <- 0 until limit) {
         dut.io.request #= i
 
         sleep(1)
@@ -78,9 +78,9 @@ object DualPriorityEncoderSim {
 object DualPriorityEncoderMuxSim {
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(DualPriorityEncoderMux(width = 12)) { dut =>
-      val limit = 1 << 12 - 1
+      val limit = 1 << 12
 
-      for (i <- 0 to limit) {
+      for (i <- 0 until limit) {
         dut.io.request #= i
 
         sleep(1)

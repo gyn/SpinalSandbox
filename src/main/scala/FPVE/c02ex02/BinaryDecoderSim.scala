@@ -6,12 +6,14 @@ import spinal.core.sim._
 object BinaryDecoder2Sim {
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(new BinaryDecoder2b) { dut =>
-      val limit = 4 - 1
+      val limit = 4
 
+      //
+      // when en is 0
       //
       dut.io.en #= false
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.sel #= a
 
         sleep(1)
@@ -22,9 +24,11 @@ object BinaryDecoder2Sim {
       sleep(1)
 
       //
+      // when en is 1
+      //
       dut.io.en #= true
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.sel #= a
 
         sleep(1)
@@ -40,12 +44,14 @@ object BinaryDecoder2Sim {
 object BinaryDecoder3Sim {
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(new BinaryDecoder3b) { dut =>
-      val limit = 8 - 1
+      val limit = 8
 
+      //
+      // when en is 0
       //
       dut.io.en #= false
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.sel #= a
 
         sleep(1)
@@ -56,9 +62,11 @@ object BinaryDecoder3Sim {
       sleep(1)
 
       //
+      // when en is 1
+      //
       dut.io.en #= true
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.sel #= a
 
         sleep(1)
@@ -74,12 +82,14 @@ object BinaryDecoder3Sim {
 object BinaryDecoder4Sim {
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(new BinaryDecoder4b) { dut =>
-      val limit = 16 - 1
+      val limit = 16
 
+      //
+      // when en is 0
       //
       dut.io.en #= false
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.sel #= a
 
         sleep(1)
@@ -90,9 +100,11 @@ object BinaryDecoder4Sim {
       sleep(1)
 
       //
+      // when en is 1
+      //
       dut.io.en #= true
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.sel #= a
 
         sleep(1)

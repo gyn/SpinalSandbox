@@ -9,7 +9,7 @@ object FPGreaterThanSim {
   def main(args: Array[String]) {
     SimConfig.withWave.doSim(new FPGreaterThan) { dut =>
       //
-      // 0 and 0
+      // check 0 and 0 with same or different sign
       //
       dut.io.exp1 #= 0
       dut.io.frac1 #= 0
@@ -23,6 +23,7 @@ object FPGreaterThanSim {
         dut.io.sign2 #= Random.nextBoolean()
 
         sleep(1)
+
         val errorMessage = "Failed when %b, %b, ouput %b".format(
           dut.io.sign1.toBoolean, dut.io.sign2.toBoolean, dut.io.gt.toBoolean)
         assert(!dut.io.gt.toBoolean, errorMessage)

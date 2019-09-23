@@ -7,14 +7,13 @@ object BarrelShifterLeftSim {
   def main(args: Array[String]) {
     val width = 32
     SimConfig.withWave.doSim(BarrelShifterLeft(width = width)) { dut =>
-      val limit = width - 1
+      val limit = width
 
       val scalar = BigInt("00000001", 16)
 
-      //
       dut.io.a #= scalar
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.amt #= a
 
         sleep(1)
@@ -29,13 +28,13 @@ object BarrelShifterRightSim {
   def main(args: Array[String]) {
     val width = 32
     SimConfig.withWave.doSim(BarrelShifterRight(width = width)) { dut =>
-      val limit = width - 1
+      val limit = width
 
       val scalar = BigInt("80000000", 16)
 
       dut.io.a #= scalar
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.amt #= a
 
         sleep(1)
@@ -50,7 +49,7 @@ object BarrelShifterSim {
   def main(args: Array[String]) {
     val width = 32
     SimConfig.withWave.doSim(BarrelShifter(width = width)) { dut =>
-      val limit = width - 1
+      val limit = width
 
       //
       // For right-shift
@@ -60,7 +59,7 @@ object BarrelShifterSim {
       dut.io.a #= rscalar
       dut.io.lr #= true
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.amt #= a
 
         sleep(1)
@@ -78,7 +77,7 @@ object BarrelShifterSim {
       dut.io.a #= lscalar
       dut.io.lr #= false
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.amt #= a
 
         sleep(1)
@@ -95,7 +94,7 @@ object BarrelShifterByReverseSim {
   def main(args: Array[String]) {
     val width = 32
     SimConfig.withWave.doSim(BarrelShifterByReverse(width = width)) { dut =>
-      val limit = width - 1
+      val limit = width
 
       //
       // For right-shift
@@ -105,7 +104,7 @@ object BarrelShifterByReverseSim {
       dut.io.a #= rscalar
       dut.io.lr #= true
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.amt #= a
 
         sleep(1)
@@ -123,7 +122,7 @@ object BarrelShifterByReverseSim {
       dut.io.a #= lscalar
       dut.io.lr #= false
 
-      for (a <- 0 to limit) {
+      for (a <- 0 until limit) {
         dut.io.amt #= a
 
         sleep(1)
