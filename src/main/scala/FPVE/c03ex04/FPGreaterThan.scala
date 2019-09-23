@@ -19,8 +19,8 @@ class FPGreaterThan extends Component {
   //
   //  1st stage : fixed the sign bit for -0 to simplify the condition
   //
-  var sign1Fixed = ((io.exp1 ## io.frac1).orR) ? io.sign1 | False
-  var sign2Fixed = ((io.exp2 ## io.frac2).orR) ? io.sign2 | False
+  val sign1Fixed = (io.exp1 ## io.frac1).orR ? io.sign1 | False
+  val sign2Fixed = (io.exp2 ## io.frac2).orR ? io.sign2 | False
   //
   // And also check the relational of {exp1, frac1} and {exp2, frac2}
   //
