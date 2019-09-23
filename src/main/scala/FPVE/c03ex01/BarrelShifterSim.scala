@@ -18,7 +18,7 @@ object BarrelShifterLeftSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == scalar << a, "Failed when %x != %x << %d".format(dut.io.y.toBigInt, scalar, a))
+        assert(dut.io.y.toBigInt == scalar << a, "when %x != %x << %d".format(dut.io.y.toBigInt, scalar, a))
       }
     }
   }
@@ -39,7 +39,7 @@ object BarrelShifterRightSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == scalar >> a, "Failed when %x != %x >> %d".format(dut.io.y.toBigInt, scalar, a))
+        assert(dut.io.y.toBigInt == scalar >> a, "when %x != %x >> %d".format(dut.io.y.toBigInt, scalar, a))
       }
     }
   }
@@ -64,7 +64,7 @@ object BarrelShifterSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == rscalar >> a, "Failed when %x != %x >> %d".format(dut.io.y.toBigInt, rscalar, a))
+        assert(dut.io.y.toBigInt == rscalar >> a, "when %x != %x >> %d".format(dut.io.y.toBigInt, rscalar, a))
       }
 
       sleep(1)
@@ -82,7 +82,7 @@ object BarrelShifterSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == lscalar << a, "Failed when %x != %x << %d".format(dut.io.y.toBigInt, lscalar, a))
+        assert(dut.io.y.toBigInt == lscalar << a, "when %x != %x << %d".format(dut.io.y.toBigInt, lscalar, a))
       }
 
       sleep(1)
@@ -109,7 +109,7 @@ object BarrelShifterByReverseSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == rscalar >> a, "Failed when %x != %x >> %d".format(dut.io.y.toBigInt, rscalar, a))
+        assert(dut.io.y.toBigInt == rscalar >> a, "when %x != %x >> %d".format(dut.io.y.toBigInt, rscalar, a))
       }
 
       sleep(1)
@@ -127,7 +127,7 @@ object BarrelShifterByReverseSim {
 
         sleep(1)
 
-        assert(dut.io.y.toBigInt == lscalar << a, "Failed when %x != %x << %d".format(dut.io.y.toBigInt, lscalar, a))
+        assert(dut.io.y.toBigInt == lscalar << a, "when %x != %x << %d".format(dut.io.y.toBigInt, lscalar, a))
       }
 
       sleep(1)

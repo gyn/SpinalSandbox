@@ -24,7 +24,7 @@ object FPGreaterThanSim {
 
         sleep(1)
 
-        val errorMessage = "Failed when %b, %b, ouput %b".format(
+        val errorMessage = "when 0s with sign1 = %b, sign2 = %b, ouput = %b".format(
           dut.io.sign1.toBoolean, dut.io.sign2.toBoolean, dut.io.gt.toBoolean)
         assert(!dut.io.gt.toBoolean, errorMessage)
 
@@ -59,7 +59,7 @@ object FPGreaterThanSim {
 
         val fp1 = if (sign1) -1 * frac1 * (1 << exp1) else frac1 * (1 << exp1)
         val fp2 = if (sign2) -1 * frac2 * (1 << exp2) else frac2 * (1 << exp2)
-        val errorMessage = "Failed when %b-%d-%d, %b-%d-%d, ouput %b".format(
+        val errorMessage = "when %b-%d-%d, %b-%d-%d, ouput = %b".format(
           sign1, frac1, exp1, sign2, frac2, exp2, dut.io.gt.toBoolean)
         assert(dut.io.gt.toBoolean == (fp1 > fp2), errorMessage)
 

@@ -49,7 +49,7 @@ object PWMLEDDimmerSim {
           expectedToggles = 2 * times
         }
 
-        val errorMessage = "Failed when w = %d".format(i)
+        val errorMessage = s"when w = ${i}"
         assert(highs == expectedHighs && toggles == expectedToggles, errorMessage)
       }
     }

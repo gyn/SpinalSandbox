@@ -16,7 +16,8 @@ object BCDCellSim {
         sleep(1)
 
         val sum = i
-        val errorMessage = "Faild when ci false, hex %d, bcd %d, co %b".format(i, dut.io.bcd.toInt, dut.io.co.toBoolean)
+        val errorMessage = "when ci = %b, hex = %d, bcd = %d, co = %b".format(
+          dut.io.ci.toBoolean, i, dut.io.bcd.toInt, dut.io.co.toBoolean)
         if (sum < 10) {
           assert(dut.io.bcd.toInt == sum && !dut.io.co.toBoolean, errorMessage)
         } else {
@@ -34,7 +35,8 @@ object BCDCellSim {
         sleep(1)
 
         val sum = i + 1
-        val errorMessage = "Faild when ci true, hex %d, bcd %d, co %b".format(i, dut.io.bcd.toInt, dut.io.co.toBoolean)
+        val errorMessage = "when ci = %b, hex = %d, bcd = %d, co = %b".format(
+          dut.io.ci.toBoolean, i, dut.io.bcd.toInt, dut.io.co.toBoolean)
         if (sum < 10) {
           assert(dut.io.bcd.toInt == sum && !dut.io.co.toBoolean, errorMessage)
         } else {
@@ -65,7 +67,7 @@ object BCDIncrementorSim {
         val n2 = (sum - n4 * 1000 - n3 * 100) / 10
         val n1 = sum % 10
 
-        val errorMessage = "Faild when hex %d%d%d, bcd %d%d%d, co %b".format(
+        val errorMessage = "when hex = %d%d%d, bcd = %d%d%d, co = %b".format(
           i, j, k, dut.io.bcd(2).toInt, dut.io.bcd(1).toInt, dut.io.bcd(0).toInt, dut.io.co.toBoolean)
         assert(dut.io.co.toBoolean == (n4 != 0) &&
           dut.io.bcd(2).toInt == n3 &&

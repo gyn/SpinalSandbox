@@ -21,7 +21,7 @@ object PriorityEncoder12bSim {
 
         val expectedEncode = Utils.ffs(i)
         val expectedMask = Utils.mask(expectedEncode)
-        val errorMessage = "Failed when request = %x, expected %d and %x, output %d and %x".format(
+        val errorMessage = "when request = %x, expected %d and %x, output %d and %x".format(
           i, expectedEncode, expectedMask, dut.io.encode.toInt, dut.io.mask.toInt)
         assert(dut.io.encode.toInt == expectedEncode && dut.io.mask.toInt == expectedMask, errorMessage)
       }
@@ -43,7 +43,7 @@ object PriorityEncoder12bMuxSim {
 
         val expectedEncode = Utils.ffs(i)
         val expectedMask = Utils.mask(expectedEncode)
-        val errorMessage = "Failed when request = %x, expected %d and %x, output %d and %x".format(
+        val errorMessage = "when request = %x, expected %d and %x, output %d and %x".format(
           i, expectedEncode, expectedMask, dut.io.encode.toInt, dut.io.mask.toInt)
         assert(dut.io.encode.toInt == expectedEncode && dut.io.mask.toInt == expectedMask, errorMessage)
       }
@@ -65,7 +65,7 @@ object DualPriorityEncoderSim {
 
         val expectedFirst = Utils.ffs(i)
         val expectedSecond = Utils.ffs(i & Utils.mask(expectedFirst))
-        val errorMessage = "Failed when request = %x, expected %d and %d, output %d and %d".format(
+        val errorMessage = "when request = %x, expected %d and %d, output %d and %d".format(
           i, expectedFirst, expectedSecond, dut.io.first.toInt, dut.io.second.toInt)
         assert(dut.io.first.toInt == expectedFirst && dut.io.second.toInt == expectedSecond, errorMessage)
       }
@@ -87,7 +87,7 @@ object DualPriorityEncoderMuxSim {
 
         val expectedFirst = Utils.ffs(i)
         val expectedSecond = Utils.ffs(i & Utils.mask(expectedFirst))
-        val errorMessage = "Failed when request = %x, expected %d and %d, output %d and %d".format(
+        val errorMessage = "when request = %x, expected %d and %d, output %d and %d".format(
           i, expectedFirst, expectedSecond, dut.io.first.toInt, dut.io.second.toInt)
         assert(dut.io.first.toInt == expectedFirst && dut.io.second.toInt == expectedSecond, errorMessage)
       }
