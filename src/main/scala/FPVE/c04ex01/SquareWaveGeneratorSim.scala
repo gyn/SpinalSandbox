@@ -10,22 +10,22 @@ object SquareWaveGeneratorSim {
 
       val limit = 16
       val times = 4
-      val resetPeroid = 36
+      val resetPeriod = 36
       for (i <- 0 until limit; j <- 0 until limit) {
         dut.clockDomain.assertReset()
         dut.io.m #= i
         dut.io.n #= j
-        sleep(resetPeroid)
+        sleep(resetPeriod)
         dut.clockDomain.deassertReset()
 
-        val highPeroid = i * 5
-        val totalPeroid = if (i == 0 && j == 0) 5 else (i + j) * 5
+        val highPeriod = i * 5
+        val totalPeriod = if (i == 0 && j == 0) 5 else (i + j) * 5
 
         var highs = 0
         var toggles = 0
         var last = false
         var index = 0
-        while (index <= totalPeroid * times) {
+        while (index <= totalPeriod * times) {
           dut.clockDomain.waitSampling()
 
           if (dut.io.signal.toBoolean) {
@@ -46,10 +46,10 @@ object SquareWaveGeneratorSim {
           expectedHighs = 0
           expectedToggles = 0
         } else if (j == 0) {
-          expectedHighs = totalPeroid * times
+          expectedHighs = totalPeriod * times
           expectedToggles = 1
         } else {
-          expectedHighs = highPeroid * times
+          expectedHighs = highPeriod * times
           expectedToggles = 2 * times
         }
 

@@ -10,21 +10,21 @@ object PWMLEDDimmerSim {
 
       val limit = 16
       val times = 4
-      val resetPeroid = 36
+      val resetPeriod = 36
       for (i <- 0 until limit) {
         dut.clockDomain.assertReset()
         dut.io.w #= i
-        sleep(resetPeroid)
+        sleep(resetPeriod)
         dut.clockDomain.deassertReset()
 
-        val highPeroid = i
-        val totalPeroid = 16
+        val highPeriod = i
+        val totalPeriod = 16
 
         var highs = 0
         var toggles = 0
         var last = false
         var index = 0
-        while (index <= totalPeroid * times) {
+        while (index <= totalPeriod * times) {
           dut.clockDomain.waitSampling()
 
           if (dut.io.signal.toBoolean) {
@@ -45,7 +45,7 @@ object PWMLEDDimmerSim {
           expectedHighs = 0
           expectedToggles = 0
         } else {
-          expectedHighs = highPeroid * times
+          expectedHighs = highPeriod * times
           expectedToggles = 2 * times
         }
 

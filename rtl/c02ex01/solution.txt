@@ -25,7 +25,7 @@ Check 01_greater_than_2b/sim/greater_than_2b_tb.sv.
 
 3.  Use four switches as the inputs and one LED as the output. Synthesize the circuit and download the configuration file to the prototyping board. Verify its operation. 
 
-Swithes SW[3] to SW[2] for a[1:0], swithes SW[1] to SW[0] for b[1:0] and LEDR[0] for gt are used on DE2-115 board.
+Switches SW[3] to SW[2] for a[1:0], switches SW[1] to SW[0] for b[1:0] and LEDR[0] for gt are used on DE2-115 board.
 
 4.  Use the 2-bit greater-than circuits and 2-bit equality comparators and a minimal number of "glue gates" to construct a 4-bit greater-than circuit. First draw a block diagram and then derive the structural HDL code according to the diagram. 
 
@@ -65,4 +65,4 @@ Check 05_greater_than_4b/sim/greater_than_4b_tb.sv.
 
 6.  Use eight switches as the inputs and one LED as the output. Synthesize the circuit and download the configuration file to the prototyping board. Verify its operation. 
 
-Swithes SW[7] to SW[4] for a[3:0], swithes SW[3] to SW[0] for b[3:0] and LEDR[0] for gt are used on DE2-115 board.
+Switches SW[7] to SW[4] for a[3:0], switches SW[3] to SW[0] for b[3:0] and led LEDR[0] for gt are used on DE2-115 board.
