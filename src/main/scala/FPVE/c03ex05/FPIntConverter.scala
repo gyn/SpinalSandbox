@@ -15,6 +15,7 @@ class FP2Int extends Component {
     val overflow  = out Bool
     val underflow = out Bool
   }
+
   //
   // 1st stage : work out the number
   //
