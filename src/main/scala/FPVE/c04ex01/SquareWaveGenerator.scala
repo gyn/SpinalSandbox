@@ -3,14 +3,15 @@ package FPVE.c04ex01
 import spinal.core._
 
 case class SquareWaveGenerator(configBits: Int) extends Component {
+  val scalar = 5
+
   val io = new Bundle {
     val m       = in UInt (configBits bits)
     val n       = in UInt (configBits bits)
     val signal  = out Bool
   }
 
-  val scalar = 5
-  val width = log2Up(scalar) + configBits + 1
+  val width = log2Up(scalar * 2 * ((1 << configBits) - 1))
 
   //
   // limitM = m * 5 = m << 2 + m
