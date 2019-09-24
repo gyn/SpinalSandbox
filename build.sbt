@@ -1,4 +1,4 @@
-name := "SpinalTemplateSbt"
+name := "SpinalHDLSandbox"
 
 version := "1.0"
 
