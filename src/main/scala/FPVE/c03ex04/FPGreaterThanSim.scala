@@ -34,9 +34,11 @@ object FPGreaterThanSim {
       sleep(1)
 
       //
-      // Random
+      // Random test
       //
-      val randomLimit = 100000
+      // maximum case number is 2 * 2 ^ 7 * 2 ^ 4 * 2 * 2 ^ 7 * 2 ^ 4 = 2 ^ 24
+      //
+      val randomLimit = 1 << (24 + 1)
       var randomIndex = 0
       while (randomIndex < randomLimit) {
         val sign1 = Random.nextBoolean()
