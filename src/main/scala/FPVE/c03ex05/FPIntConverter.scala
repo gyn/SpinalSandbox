@@ -26,7 +26,13 @@ class FP2Int extends Component {
   //  2nd stage : deal with output
   //
   io.value := io.sign ? (~magnitude + 1).asSInt | magnitude.asSInt
-  io.overflow := io.sign ? (valueFixed > (128 << 8)) | (valueFixed > (127 << 8))
+  //
+  // Since the SInt is between -128 and 127, we should check valueFixed > (128 << 8) when io.sign is 1 and also
+  // valueFixed > (127 << 8) when io.sign is 0.
+  //
+  // And because 0x80 takes 8 bits, so we could ignore the lower 8 bits.
+  //
+  io.overflow := io.sign ? (valueFixed(valueFixed.high downto 8) > 128) | (valueFixed > (127 << 8))
   io.underflow := (io.frac =/= 0) && valueFixed < (1 << 8)
 }
 
