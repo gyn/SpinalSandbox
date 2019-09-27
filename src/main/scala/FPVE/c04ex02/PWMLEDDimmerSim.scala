@@ -5,12 +5,16 @@ import spinal.core.sim._
 
 object PWMLEDDimmerSim {
   def main(args: Array[String]) {
+    val systemClock = 50 MHz
+    val resetPeriod = 36
+
+    val simulationPeriod = ((1 GHz) / systemClock).toInt
+
     SimConfig.withWave.doSim(PWMLEDDimmer(width = 4)) { dut =>
-      dut.clockDomain.forkStimulus(period = 20)
+      dut.clockDomain.forkStimulus(period = simulationPeriod)
 
       val limit = 16
       val times = 4
-      val resetPeriod = 36
       for (i <- 0 until limit) {
         dut.clockDomain.assertReset()
         dut.io.w #= i

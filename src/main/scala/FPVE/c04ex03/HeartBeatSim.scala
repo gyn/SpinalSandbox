@@ -7,12 +7,13 @@ object HeartBeatSim {
   def main(args: Array[String]) {
     val systemClock = 50 MHz
     val simulationInterval = 1 us
-    val simulationCycles = (systemClock * simulationInterval).toInt
-
     val resetPeriod = 10
 
+    val simulationCycles = (systemClock * simulationInterval).toInt
+    val simulationPeriod = ((1 GHz) / systemClock).toInt
+
     SimConfig.withWave.doSim(HeartBeat(interval = simulationCycles)) { dut =>
-      dut.clockDomain.forkStimulus(period = 20)
+      dut.clockDomain.forkStimulus(period = simulationPeriod)
 
       val limit = 22 * simulationCycles
 
