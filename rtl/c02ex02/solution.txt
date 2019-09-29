@@ -1,0 +1,105 @@
+An n-to-2^n binary decoder asserts one of 2^n bits according to the input combination. The finctional table of a 2-to-4 decoder with an enable signal is shown in Table 2.2. We want to create several decoders using only gate-level logical operators. The procedure is as follows: 
+
+1.  Determine the logic expressions for the 2-to-4 decoder with enable and derive the HDL code using only logical operators. 
+
+The logic expressions are:
+
+out[3] = en &  sel[1] &  sel[0];
+out[2] = en &  sel[1] & ~sel[0];
+out[1] = en & ~sel[1] &  sel[0];
+out[0] = en & ~sel[1] & ~sel[0];
+
+So the 01_binary_decoder_2b4b/rtl/binary_decoder_2b4b.sv could be done.
+
+2.  Derive a testbench for the decoder. Perform a simulation and verify the correctness of the design. 
+
+Check 01_binary_decoder_2b4b/sim/binary_decoder_2b4b_tb.sv.
+
+3.  Use two switches as the inputs and four LEDs as the outputs. Synthesize the circuit and download the configuration file to the prototyping board. Verify its operation.
+
+Swithes SW[2] for en, swithes SW[1] to SW[0] for sel[1:0] and LEDR[3] to LEDR[0] for out are used on DE2-115 board.
+
+4.  Use the 2-to-4 decoders to derive a 3-to-8 decoder. First draw a block diagram and then derive the structural HDL code according to the diagram. 
+
+Block diagram for 3-to-8 decoder is :
+
+     en
+    +---------------------+
+                          |
+     sel[2:0]  sel[1:0]   |               +------------------------------+
+    +---------+-----------------------+-->+ .sel                         |
+              |           |           |   |                              | out[7:4]   out[7:0]
+              |           |  +-----+  |   |     binary_decoder_2b4b .out +----------+---------->
+              |           +--+     |  |   |                              |          ^
+              |sel[2]     |  | AND +----->+ .en                          |          |
+              +-------+------+     |  |   +------------------------------+          |
+                      |   |  +-----+  |                                             |
+                      |   |           |                                             |
+                      |   |           |                                             |
+                    +-+-+ |           |   +------------------------------+          |
+                    |NOT| |           +-->+ .sel                         |          |
+                    +-+-+ |               |                              | out[3:0] |
+                      |   |  +-----+      |     binary_decoder_2b4b .out +----------+
+                      |   +--+     |      |                              |
+                      |      | AND +----->+ .en                          |
+                      +------+     |      +------------------------------+
+                             +-----+
+
+
+And then 02_binary_decoder_3b8b/rtl/binary_decoder_3b8b.sv could be done.
+
+5.  Derive a testbench for the 3-to-8 decoder. Perform a simulation and verify the cor- rectness of the design. 
+
+Check 02_binary_decoder_3b8b/sim/binary_decoder_3b8b_tb.sv.
+
+6.  Use three switches as the inputs and eight LEDs as the outputs. Synthesize the circuit and download the configuration file to the prototyping board, Verify its operation. 
+
+Swithes SW[3] for en, swithes SW[2] to SW[0] for sel[1:0] and LEDR[7] to LEDR[0] for out are used on DE2-115 board.
+
+7.  Use the 2-to-4 decoders to derive a 4-to-16 decoder. First draw a block diagram and then derive the structural HDL code according to the diagram. 
+
+Block diagram for 4-to-16 decoder is :
+
+    sel[3:0]                              sel[1:0]                +------------------------------+
+    +--------+------------------------------------------------+-->+ .sel                         |
+             |                                                |   |                              | out[15:12] out[15:0]
+             |                                                |   |     binary_decoder_2b4b .out +----------+---------->
+             |                                        out[3]  |   |                              |          ^
+             |sel[3:2]                              +------------>+ .en                          |          |
+             |                                      |         |   +------------------------------+          |
+             |                                      |         |                                             |
+             |    +------------------------------+  |         |                                             |
+             +--->+ .sel                         |  |         |   +------------------------------+          |
+                  |                              |  |         +-->+ .sel                         |          |
+                  |     binary_decoder_2b4b .out +--+         |   |                              | out[11:8]|
+    en            |                              |  |         |   |     binary_decoder_2b4b .out +----------+
+    +------------>+ .en                          |  | out[2]  |   |                              |          |
+                  +------------------------------+  +------------>+ .en                          |          |
+                                                    |         |   +------------------------------+          |
+                                                    |         |                                             |
+                                                    |         |                                             |
+                                                    |         |   +------------------------------+          |
+                                                    |         +-->+ .sel                         |          |
+                                                    |         |   |                              | out[7:4] |
+                                                    |         |   |     binary_decoder_2b4b .out +----------+
+                                                    | out[1]  |   |                              |          |
+                                                    +------------>+ .en                          |          |
+                                                    |         |   +------------------------------+          |
+                                                    |         |                                             |
+                                                    |         |                                             |
+                                                    |         |   +------------------------------+          |
+                                                    |         +-->+ .sel                         |          |
+                                                    |             |                              | out[3:0] |
+                                                    |             |     binary_decoder_2b4b .out +----------+
+                                                    | out[0]      |                              |
+                                                    +------------>+ .en                          |
+                                                                  +------------------------------+
+
+
+And then 03_binary_decoder_4b16b/rtl/binary_decoder_4b16b.sv could be done.
+
+8.  Derive a testbench for the 4-to-16 decoder. Perform a simulation and verify the correctness of the design. 
+
+Check 03_binary_decoder_4b16b/sim/binary_decoder_4b16b_tb.sv.
+
+And swithes SW[4] for en, swithes SW[3] to SW[0] for sel[3:0] and LEDR[15] to LEDR[0] for out are used on DE2-115 board.
