@@ -30,9 +30,13 @@ class FP2Int extends Component {
   // Since the SInt is between -128 and 127, we should check valueFixed > (128 << 8) when io.sign is 1 and also
   // valueFixed > (127 << 8) when io.sign is 0.
   //
-  // And because 0x80 takes 8 bits, so we could ignore the lower 8 bits.
+  // For 128, frac and exp should be 0x80 and 8, so the lower 8 bit could be ignore. While for 127, frac and exp is FE
+  // and 7, the lower 7 bit could be ignored
   //
-  io.overflow := io.sign ? (valueFixed(valueFixed.high downto 8) > 128) | (valueFixed > (127 << 8))
+  io.overflow := io.sign ?
+    (valueFixed(valueFixed.high downto 8) > 0x80) |
+    (valueFixed(valueFixed.high downto 7) > (0x7F << 1))
+
   io.underflow := (io.frac =/= 0) && valueFixed < (1 << 8)
 }
 
@@ -77,8 +81,9 @@ class Int2IntTester extends Component {
   }
 
   val int2FP = new Int2FP
-  val fp2Int = new FP2Int
   int2FP.io.value := io.inValue
+
+  val fp2Int = new FP2Int
   fp2Int.io.sign := int2FP.io.sign
   fp2Int.io.frac := int2FP.io.frac
   fp2Int.io.exp := int2FP.io.exp
