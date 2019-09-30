@@ -88,3 +88,18 @@ class DualEdgeDetectorMealy extends Component {
   io.negedge := detectorFsm.isActive(detectorFsm.stateLevelHigh) && !io.level
   io.posedge := detectorFsm.isActive(detectorFsm.stateLevelLow) && io.level
 }
+
+class DualEdgeDetectorGate extends Component {
+  val io = new Bundle {
+    val level   = in  Bool
+    val posedge = out Bool
+    val negedge = out Bool
+  }
+
+  val delayReg = Reg(Bool) init (False)
+
+  delayReg := io.level
+
+  io.negedge := delayReg && !io.level
+  io.posedge := !delayReg && io.level
+}
