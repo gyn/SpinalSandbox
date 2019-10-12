@@ -26,7 +26,6 @@ case class Fibonacci(limitN: Int, resultLimit: Int) extends Component {
 
     stateIdle
       .whenIsActive {
-        io.ready := True
         when(io.start) {
           t0Reg := 0
           t1Reg := 1
