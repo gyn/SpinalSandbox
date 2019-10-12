@@ -26,6 +26,7 @@ object FibonacciSim {
       dut.clockDomain.waitSampling(10)
 
       dut.io.start #= false
+      sleep(5)
       dut.clockDomain.waitSampling(1)
 
       dut.io.n #= 13
