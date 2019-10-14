@@ -5,7 +5,8 @@ import spinal.lib.fsm._
 
 case class Bin2BCD(widthN: Int) extends Component {
   val NIBBLE = 4
-  val counterWidth = log2Up(widthN)
+  val widthCounter = log2Up(widthN)
+
   def BCDNibble(binWidth: Int) = {
     var n = 1 << binWidth
     var i = 0
@@ -32,7 +33,7 @@ case class Bin2BCD(widthN: Int) extends Component {
     val stateOp = new State
     val stateDone = new State
 
-    val nRegNext = UInt(counterWidth bits)
+    val nRegNext = UInt(widthCounter bits)
     val nReg = RegNext(nRegNext) init(0)
     val psRegNext = UInt(widthN bits)
     val psReg = RegNext(psRegNext) init (0)
