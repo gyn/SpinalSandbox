@@ -1,4 +1,4 @@
-package FPVE.c05ex02
+package FPVE.c06ex01
 
 import spinal.core._
 
