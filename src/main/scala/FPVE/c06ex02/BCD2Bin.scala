@@ -45,7 +45,7 @@ case class BCD2Bin(widthN: Int) extends Component {
         when(io.start) {
           psReg := io.n
           binRegNext := 0
-          nRegNext := widthN / NIBBLE
+          nRegNext := widthCounter
 
           goto(stateOp)
         }
@@ -55,6 +55,9 @@ case class BCD2Bin(widthN: Int) extends Component {
       .whenIsActive {
         psRegNext := psReg |<< 4
 
+        //
+        // binReg * 10 + psReg(psReg.high downto (psReg.high - 3))
+        //
         binRegNext := (binReg |<< 3) + (binReg |<< 1) + psReg(widthN - 1 downto widthN - 4)
 
         nRegNext := nReg - 1
