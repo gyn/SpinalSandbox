@@ -24,7 +24,7 @@ case class BCD2Bin(widthN: Int) extends Component {
     val result  = out UInt(widthResult bits)
   }
 
-  val bin2bcdFsm = new StateMachine {
+  val bcd2binFsm = new StateMachine {
     val stateIdle = new State with EntryPoint
     val stateOp = new State
     val stateDone = new State
@@ -69,7 +69,7 @@ case class BCD2Bin(widthN: Int) extends Component {
     stateDone.whenIsActive { goto(stateIdle) }
   }
 
-  io.ready := bin2bcdFsm.isActive(bin2bcdFsm.stateIdle)
-  io.done := bin2bcdFsm.isActive(bin2bcdFsm.stateDone)
-  io.result := bin2bcdFsm.binRegNext
+  io.ready := bcd2binFsm.isActive(bcd2binFsm.stateIdle)
+  io.done := bcd2binFsm.isActive(bcd2binFsm.stateDone)
+  io.result := bcd2binFsm.binRegNext
 }
