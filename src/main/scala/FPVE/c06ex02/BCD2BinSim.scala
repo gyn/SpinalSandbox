@@ -10,6 +10,7 @@ object BCD2BinSim {
 
     val simulationPeriod = ((1 GHz) / systemClock).toInt
 
+    val NIBBLE = 4
     val width = 12
 
     SimConfig.withWave.doSim(BCD2Bin(width)) { dut =>
@@ -22,14 +23,20 @@ object BCD2BinSim {
       sleep(resetPeriod)
       dut.clockDomain.deassertReset()
 
+      def BCD3toInt(i: Int, j: Int, k: Int) : Int = {
+        i * 100 + j * 10 + k
+      }
+
       for (i <- 0 until 10; j <- 0 until 10; k<- 0 until 10 ) {
         dut.io.n #= (i << 8) + (j << 4) + k
         dut.clockDomain.waitSampling(1)
         dut.io.start #= true
 
-        dut.clockDomain.waitSampling(width / 4 + 2)
+        dut.clockDomain.waitSampling(width / NIBBLE + 2)
 
         assert(dut.io.done.toBoolean)
+        val errorMessage = f"n = 0x${dut.io.n.toInt}%x, output ${dut.io.result.toInt}"
+        assert(dut.io.result.toInt == BCD3toInt(i, j, k), errorMessage)
 
         dut.io.start #= false
         dut.clockDomain.waitSampling(1)
