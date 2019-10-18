@@ -10,7 +10,11 @@ object FibonacciSim {
 
     val simulationPeriod = ((1 GHz) / systemClock).toInt
 
-    SimConfig.withWave.doSim(Fibonacci(1<<5, 1<<20)) { dut =>
+    val width = 5
+    val widthResult = 21
+    val limitN = 1 << width
+    val limitResult = 1 << widthResult
+    SimConfig.withWave.doSim(Fibonacci(limitN, limitResult)) { dut =>
       dut.clockDomain.forkStimulus(period = simulationPeriod)
 
       //
@@ -20,19 +24,28 @@ object FibonacciSim {
       sleep(resetPeriod)
       dut.clockDomain.deassertReset()
 
-      dut.io.n #= 7
-      dut.io.start #= true
+      for (i <- 0 until 1 << width) {
+        dut.io.n #= i
+        dut.clockDomain.waitSampling(1)
+        dut.io.start #= true
 
-      dut.clockDomain.waitSampling(10)
+        dut.clockDomain.waitSampling( i match { case 0 | 1 => 3; case _=> i + 2})
+        assert(dut.io.done.toBoolean)
 
-      dut.io.start #= false
-      sleep(5)
-      dut.clockDomain.waitSampling(1)
+        def fibonacci(n: Int): Int = {
+          def fibonacciTail(n: Int, a: Int, b: Int): Int = n match {
+            case 0 => a
+            case _ => fibonacciTail(n - 1, b, a + b)
+          }
+          fibonacciTail(n, 0, 1)
+        }
 
-      dut.io.n #= 13
-      dut.io.start #= true
+        val errorMessage = f"n = ${i}%d, expected ${fibonacci(i)}%d, output ${dut.io.result.toInt}"
+        assert(dut.io.result.toInt == fibonacci(i), errorMessage)
 
-      dut.clockDomain.waitSampling(20)
+        dut.io.start #= false
+        dut.clockDomain.waitSampling(1)
+      }
     }
   }
 }

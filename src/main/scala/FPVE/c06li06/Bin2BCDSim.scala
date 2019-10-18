@@ -24,16 +24,6 @@ object Bin2BCDSim {
       sleep(resetPeriod)
       dut.clockDomain.deassertReset()
 
-      def Int2BCD(number: Int) : Int = {
-        val numberList = new ListBuffer[Int]()
-        var n = number
-        while (n != 0) {
-          numberList.prepend(n % 10)
-          n = n/10
-        }
-        numberList.fold(0)((acc, s) => acc * 16 + s)
-      }
-
       for (i <- 0 until 1 << width) {
         dut.io.n #= i
         dut.clockDomain.waitSampling(1)
@@ -42,7 +32,18 @@ object Bin2BCDSim {
         dut.clockDomain.waitSampling(width + 2)
 
         assert(dut.io.done.toBoolean)
-        val errorMessage = f"n = ${i}, output 0x${dut.io.result.toInt}%x"
+
+        def Int2BCD(number: Int) : Int = {
+          val numberList = new ListBuffer[Int]()
+          var n = number
+          while (n != 0) {
+            numberList.prepend(n % 10)
+            n = n/10
+          }
+          numberList.fold(0)((acc, s) => acc * 16 + s)
+        }
+
+        val errorMessage = f"n = ${i}, expected ${Int2BCD(i)}%d, output 0x${dut.io.result.toInt}%x"
         assert(Int2BCD(i) == dut.io.result.toInt, errorMessage)
 
         dut.io.start #= false
