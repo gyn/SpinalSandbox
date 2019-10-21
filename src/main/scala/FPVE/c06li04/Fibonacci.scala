@@ -8,8 +8,8 @@ case class Fibonacci(limitN: Int, resultLimit: Int) extends Component {
   val widthResult = log2Up(resultLimit)
 
   val io = new Bundle {
-    val start   = in Bool
-    val n       = in UInt(widthN bits)
+    val start   = in  Bool
+    val n       = in  UInt(widthN bits)
     val ready   = out Bool
     val done    = out Bool
     val result  = out UInt(widthResult bits)

@@ -21,8 +21,8 @@ case class Bin2BCD(widthN: Int) extends Component {
   val widthResult = nibbleResult * NIBBLE
 
   val io = new Bundle {
-    val start   = in Bool
-    val n       = in UInt(widthN bits)
+    val start   = in  Bool
+    val n       = in  UInt(widthN bits)
     val ready   = out Bool
     val done    = out Bool
     val result  = out UInt(widthResult bits)

@@ -20,8 +20,8 @@ class FibonacciBCD extends Component {
   val resultWidth = log2Up(fibonacciOutputLimit)
 
   val io = new Bundle {
-    val start   = in Bool
-    val n       = in UInt(bcdWidth bits)
+    val start   = in  Bool
+    val n       = in  UInt(bcdWidth bits)
     val result  = out Bits(outputWidth bits)
   }
 
