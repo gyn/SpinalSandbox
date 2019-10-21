@@ -33,6 +33,7 @@ object FibonacciSim {
         assert(dut.io.done.toBoolean)
 
         def fibonacci(n: Int): Int = {
+          @scala.annotation.tailrec
           def fibonacciTail(n: Int, a: Int, b: Int): Int = n match {
             case 0 => a
             case _ => fibonacciTail(n - 1, b, a + b)
@@ -41,7 +42,7 @@ object FibonacciSim {
           fibonacciTail(n, 0, 1)
         }
 
-        val errorMessage = f"n = ${i}%d, expected ${fibonacci(i)}%d, output ${dut.io.result.toInt}"
+        val errorMessage = f"n = $i%d, expected ${fibonacci(i)}%d, output ${dut.io.result.toInt}"
         assert(dut.io.result.toInt == fibonacci(i), errorMessage)
 
         dut.io.start #= false

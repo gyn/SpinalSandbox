@@ -43,7 +43,7 @@ object Bin2BCDSim {
           numberList.fold(0)((acc, s) => acc * 16 + s)
         }
 
-        val errorMessage = f"n = ${i}, expected ${Int2BCD(i)}%d, output 0x${dut.io.result.toInt}%x"
+        val errorMessage = f"n = $i, expected ${Int2BCD(i)}%d, output 0x${dut.io.result.toInt}%x"
         assert(Int2BCD(i) == dut.io.result.toInt, errorMessage)
 
         dut.io.start #= false
