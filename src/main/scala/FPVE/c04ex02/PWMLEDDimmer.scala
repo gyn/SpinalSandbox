@@ -4,7 +4,7 @@ import spinal.core._
 
 case class PWMLEDDimmer(width: Int) extends Component {
   val io = new Bundle {
-    val w       = in  UInt (width bits)
+    val w       = in  UInt(width bits)
     val signal  = out Bool
   }
 

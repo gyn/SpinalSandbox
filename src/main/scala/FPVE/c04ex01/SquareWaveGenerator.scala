@@ -6,8 +6,8 @@ case class SquareWaveGenerator(configBits: Int) extends Component {
   val scalar = 5
 
   val io = new Bundle {
-    val m       = in UInt (configBits bits)
-    val n       = in UInt (configBits bits)
+    val m       = in  UInt(configBits bits)
+    val n       = in  UInt(configBits bits)
     val signal  = out Bool
   }
 

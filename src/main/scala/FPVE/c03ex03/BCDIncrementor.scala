@@ -6,9 +6,9 @@ class BCDCell extends Component {
   val NIBBLE = 4
 
   val io = new Bundle {
-    val hex = in  UInt (NIBBLE bits)
+    val hex = in  UInt(NIBBLE bits)
     val ci  = in  Bool
-    val bcd = out UInt (NIBBLE bits)
+    val bcd = out UInt(NIBBLE bits)
     val co  = out Bool
   }
 

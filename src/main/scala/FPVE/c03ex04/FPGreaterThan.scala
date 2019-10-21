@@ -8,11 +8,11 @@ class FPGreaterThan extends Component {
 
   val io = new Bundle {
     val sign1 = in  Bool
-    val exp1  = in  UInt (expBits bits)
-    val frac1 = in  UInt (fracBits bits)
+    val exp1  = in  UInt(expBits bits)
+    val frac1 = in  UInt(fracBits bits)
     val sign2 = in  Bool
-    val exp2  = in  UInt (expBits bits)
-    val frac2 = in  UInt (fracBits bits)
+    val exp2  = in  UInt(expBits bits)
+    val frac2 = in  UInt(fracBits bits)
     val gt    = out Bool
   }
 

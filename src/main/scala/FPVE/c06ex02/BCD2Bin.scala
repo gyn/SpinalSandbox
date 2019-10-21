@@ -32,9 +32,9 @@ case class BCD2Bin(widthN: Int) extends Component {
     val nRegNext = UInt(widthCounter bits)
     val nReg = RegNext(nRegNext) init(0)
     val psRegNext = UInt(widthN bits)
-    val psReg = RegNext(psRegNext) init (0)
+    val psReg = RegNext(psRegNext) init(0)
     val binRegNext = UInt(widthResult bits)
-    val binReg = RegNext(binRegNext) init (0)
+    val binReg = RegNext(binRegNext) init(0)
 
     nRegNext := nReg
     psRegNext := psReg
@@ -42,7 +42,7 @@ case class BCD2Bin(widthN: Int) extends Component {
 
     stateIdle
       .whenIsActive {
-        when(io.start) {
+        when (io.start) {
           psReg := io.n
           binRegNext := 0
           nRegNext := widthCounter
@@ -66,7 +66,9 @@ case class BCD2Bin(widthN: Int) extends Component {
         }
       }
 
-    stateDone.whenIsActive { goto(stateIdle) }
+    stateDone.whenIsActive {
+      goto(stateIdle)
+    }
   }
 
   io.ready := bcd2binFsm.isActive(bcd2binFsm.stateIdle)

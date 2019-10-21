@@ -23,7 +23,7 @@ object BCD2BinSim {
       sleep(resetPeriod)
       dut.clockDomain.deassertReset()
 
-      for (i <- 0 until 10; j <- 0 until 10; k<- 0 until 10 ) {
+      for (i <- 0 until 10; j <- 0 until 10; k <- 0 until 10) {
         dut.io.n #= (i << 8) + (j << 4) + k
         dut.clockDomain.waitSampling(1)
         dut.io.start #= true
@@ -32,7 +32,7 @@ object BCD2BinSim {
 
         assert(dut.io.done.toBoolean)
 
-        def BCD3toInt(i: Int, j: Int, k: Int) : Int = {
+        def BCD3toInt(i: Int, j: Int, k: Int): Int = {
           i * 100 + j * 10 + k
         }
 

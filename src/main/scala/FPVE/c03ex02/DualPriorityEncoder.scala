@@ -6,9 +6,9 @@ case class PriorityEncoderMux(width: Int) extends Component {
   val nbit = log2Up(width + 1)
 
   val io = new Bundle {
-    val request = in  Bits (width bits)
-    val encode  = out UInt (nbit bits)
-    val mask    = out Bits ((width - 1) bits)
+    val request = in  Bits(width bits)
+    val encode  = out UInt(nbit bits)
+    val mask    = out Bits((width - 1) bits)
   }
 
   val limit = 1 << width
@@ -34,9 +34,9 @@ class PriorityEncoder12b extends Component {
   val nbit = log2Up(width + 1)
 
   val io = new Bundle {
-    val request = in  Bits (width bits)
-    val encode  = out UInt (nbit bits)
-    val mask    = out Bits ((width - 1) bits)
+    val request = in  Bits(width bits)
+    val encode  = out UInt(nbit bits)
+    val mask    = out Bits((width - 1) bits)
   }
 
   when (io.request(11)) {
@@ -85,9 +85,9 @@ case class DualPriorityEncoderMux(width: Int) extends Component {
   val nbit = log2Up(width + 1)
 
   val io = new Bundle {
-    val request = in  Bits (width bits)
-    val first   = out UInt (nbit bits)
-    val second  = out UInt (nbit bits)
+    val request = in  Bits(width bits)
+    val first   = out UInt(nbit bits)
+    val second  = out UInt(nbit bits)
   }
 
   val priorityEncoderFirst = PriorityEncoderMux(width = width)
@@ -106,9 +106,9 @@ class DualPriorityEncoder12b extends Component {
   val nbit = log2Up(width + 1)
 
   val io = new Bundle {
-    val request = in  Bits (width bits)
-    val first   = out UInt (nbit bits)
-    val second  = out UInt (nbit bits)
+    val request = in  Bits(width bits)
+    val first   = out UInt(nbit bits)
+    val second  = out UInt(nbit bits)
   }
 
   val priorityEncoderFirst = new PriorityEncoder12b

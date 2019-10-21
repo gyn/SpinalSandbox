@@ -11,9 +11,9 @@ import spinal.core._
 //
 class BinaryDecoder2b extends Component {
   val io = new Bundle {
-    val output  = out Bits (4 bits)
+    val output  = out Bits(4 bits)
     val en      = in  Bool
-    val sel     = in  Bits (2 bits)
+    val sel     = in  Bits(2 bits)
   }
 
   io.output(3) := io.en &&  io.sel(1) &&  io.sel(0)
@@ -49,9 +49,9 @@ class BinaryDecoder2b extends Component {
 //
 class BinaryDecoder3b extends Component {
   val io = new Bundle {
-    val output  = out Bits (8 bits)
+    val output  = out Bits(8 bits)
     val en      = in  Bool
-    val sel     = in  Bits (3 bits)
+    val sel     = in  Bits(3 bits)
   }
 
   val binaryDecoder2bHi = new BinaryDecoder2b
@@ -103,9 +103,9 @@ class BinaryDecoder3b extends Component {
 //
 class BinaryDecoder4b extends Component {
   val io = new Bundle {
-    val output  = out Bits (16 bits)
+    val output  = out Bits(16 bits)
     val en      = in  Bool
-    val sel     = in  Bits (4 bits)
+    val sel     = in  Bits(4 bits)
   }
 
   val binaryDecoder2bSel = new BinaryDecoder2b

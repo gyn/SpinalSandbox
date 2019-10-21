@@ -9,9 +9,9 @@ class FP2Int extends Component {
 
   val io = new Bundle {
     val sign      = in  Bool
-    val exp       = in  UInt (expBits bits)
-    val frac      = in  UInt (fracBits bits)
-    val value     = out SInt (intBits bits)
+    val exp       = in  UInt(expBits bits)
+    val frac      = in  UInt(fracBits bits)
+    val value     = out SInt(intBits bits)
     val overflow  = out Bool
     val underflow = out Bool
   }
@@ -46,10 +46,10 @@ class Int2FP extends Component {
   val fracBits = 8
 
   val io = new Bundle {
-    val value = in  SInt (intBits bits)
+    val value = in  SInt(intBits bits)
     val sign  = out Bool
-    val exp   = out UInt (expBits bits)
-    val frac  = out UInt (fracBits bits)
+    val exp   = out UInt(expBits bits)
+    val frac  = out UInt(fracBits bits)
   }
 
   //
@@ -76,8 +76,8 @@ class Int2IntTester extends Component {
   val intBits = 8
 
   val io = new Bundle {
-    val inValue   = in  SInt (intBits bits)
-    val outValue  = out SInt (intBits bits)
+    val inValue   = in  SInt(intBits bits)
+    val outValue  = out SInt(intBits bits)
   }
 
   val int2FP = new Int2FP

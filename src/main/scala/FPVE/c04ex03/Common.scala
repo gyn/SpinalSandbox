@@ -19,8 +19,8 @@ case class ModNCounter(limit: Int) extends Component {
   val width = log2Up(limit)
 
   val io = new Bundle {
-    val tick  = in Bool
-    val up    = in Bool
+    val tick  = in  Bool
+    val up    = in  Bool
     val value = out UInt(width bits)
   }
 
