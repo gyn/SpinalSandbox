@@ -29,7 +29,7 @@ case class RotatingSquare(interval: Int) extends Component {
   //
   // Pattern register
   //
-  val patternReg = Reg(Bits(patternWidth bits)) init (B((patternWidth - 1 downto 0) -> true))
+  val patternReg = Reg(Bits(patternWidth bits)) init(B((patternWidth - 1 downto 0) -> true))
   patternReg := counter.io.value.mux(
     0 -> SSegPattern.upperSquare ## SSegPattern.blank ## SSegPattern.blank ## SSegPattern.blank,
     1 -> SSegPattern.blank ## SSegPattern.upperSquare ## SSegPattern.blank ## SSegPattern.blank,

@@ -67,7 +67,7 @@ case class StopWatch(interval: Int) extends Component {
     val hex   = out Vec(UInt(nibble bits), number)
   }
 
-  val counter = Reg(UInt(width bits)) init (0)
+  val counter = Reg(UInt(width bits)) init(0)
   counter := (counter === U(interval - 1)) ? U(0) | (counter + 1)
 
   val tick = counter === U(interval - 1) && io.go

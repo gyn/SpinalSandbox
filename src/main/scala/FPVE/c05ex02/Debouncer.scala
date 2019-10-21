@@ -11,7 +11,7 @@ case class Debouncer(cycles: Int) extends Component {
 
   val limit = cycles
   val width = log2Up(limit)
-  val counter = Reg(UInt(width bits)) init (0)
+  val counter = Reg(UInt(width bits)) init(0)
   counter := (counter === U(limit - 1)) ? U(0) | (counter + 1)
   val tick = counter === U(limit - 1)
 

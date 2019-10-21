@@ -29,7 +29,7 @@ case class HeartBeat(interval: Int) extends Component {
   //
   // Pattern register
   //
-  val patternReg = Reg(Bits(patternWidth bits)) init (B((patternWidth - 1 downto 0) -> true))
+  val patternReg = Reg(Bits(patternWidth bits)) init(B((patternWidth - 1 downto 0) -> true))
   patternReg := counter.io.value.mux(
     0 -> SSegPattern.blank ## SSegPattern.rightBar ## SSegPattern.leftBar ## SSegPattern.blank,
     1 -> SSegPattern.blank ## SSegPattern.leftBar ## SSegPattern.rightBar ## SSegPattern.blank,

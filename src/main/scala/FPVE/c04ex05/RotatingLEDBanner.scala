@@ -29,7 +29,7 @@ case class RotatingLEDBanner(interval: Int) extends Component {
   //
   // Pattern register
   //
-  val patternReg = Reg(Bits(patternWidth bits)) init (B((patternWidth - 1 downto 0) -> true))
+  val patternReg = Reg(Bits(patternWidth bits)) init(B((patternWidth - 1 downto 0) -> true))
   patternReg := counter.io.value.mux(
     0 -> SSegPattern.Nr0 ## SSegPattern.Nr1 ## SSegPattern.Nr2 ## SSegPattern.Nr3,
     1 -> SSegPattern.Nr1 ## SSegPattern.Nr2 ## SSegPattern.Nr3 ## SSegPattern.Nr4,
