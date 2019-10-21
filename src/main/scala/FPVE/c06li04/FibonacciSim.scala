@@ -29,7 +29,7 @@ object FibonacciSim {
         dut.clockDomain.waitSampling(1)
         dut.io.start #= true
 
-        dut.clockDomain.waitSampling( i match { case 0 | 1 => 3; case _=> i + 2})
+        dut.clockDomain.waitSampling(i match { case 0 | 1 => 3; case _ => i + 2 })
         assert(dut.io.done.toBoolean)
 
         def fibonacci(n: Int): Int = {
@@ -37,6 +37,7 @@ object FibonacciSim {
             case 0 => a
             case _ => fibonacciTail(n - 1, b, a + b)
           }
+
           fibonacciTail(n, 0, 1)
         }
 

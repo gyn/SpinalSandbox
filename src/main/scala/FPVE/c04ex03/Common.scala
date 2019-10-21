@@ -19,12 +19,12 @@ case class ModNCounter(limit: Int) extends Component {
   val width = log2Up(limit)
 
   val io = new Bundle {
-    val tick  = in  Bool
-    val up    = in  Bool
+    val tick  = in Bool
+    val up    = in Bool
     val value = out UInt(width bits)
   }
 
-  val counter = Reg(UInt(width bits)) init (0)
+  val counter = Reg(UInt(width bits)) init(0)
   when (io.tick) {
     when (io.up) {
       counter := (counter === U(limit - 1)) ? U(0) | (counter + 1)
@@ -68,19 +68,41 @@ object BCDSSeg {
   def apply(input: UInt): Bits = {
     val ret = Bits(8 bits)
     switch (input) {
-      is(0x0) { ret := SSegPattern.Nr0 }
-      is(0x1) { ret := SSegPattern.Nr1 }
-      is(0x2) { ret := SSegPattern.Nr2 }
-      is(0x3) { ret := SSegPattern.Nr3 }
-      is(0x4) { ret := SSegPattern.Nr4 }
-      is(0x5) { ret := SSegPattern.Nr5 }
-      is(0x6) { ret := SSegPattern.Nr6 }
-      is(0x7) { ret := SSegPattern.Nr7 }
-      is(0x8) { ret := SSegPattern.Nr8 }
-      is(0x9) { ret := SSegPattern.Nr9 }
-      default { ret := SSegPattern.blank }
+      is(0x0) {
+        ret := SSegPattern.Nr0
+      }
+      is(0x1) {
+        ret := SSegPattern.Nr1
+      }
+      is(0x2) {
+        ret := SSegPattern.Nr2
+      }
+      is(0x3) {
+        ret := SSegPattern.Nr3
+      }
+      is(0x4) {
+        ret := SSegPattern.Nr4
+      }
+      is(0x5) {
+        ret := SSegPattern.Nr5
+      }
+      is(0x6) {
+        ret := SSegPattern.Nr6
+      }
+      is(0x7) {
+        ret := SSegPattern.Nr7
+      }
+      is(0x8) {
+        ret := SSegPattern.Nr8
+      }
+      is(0x9) {
+        ret := SSegPattern.Nr9
+      }
+      default {
+        ret := SSegPattern.blank
+      }
     }
-    return ret
+    ret
   }
 }
 
@@ -88,24 +110,58 @@ object HexSSeg {
   def apply(input: UInt): Bits = {
     val ret = Bits(8 bits)
     switch (input) {
-      is(0x0) { ret := SSegPattern.Nr0 }
-      is(0x1) { ret := SSegPattern.Nr1 }
-      is(0x2) { ret := SSegPattern.Nr2 }
-      is(0x3) { ret := SSegPattern.Nr3 }
-      is(0x4) { ret := SSegPattern.Nr4 }
-      is(0x5) { ret := SSegPattern.Nr5 }
-      is(0x6) { ret := SSegPattern.Nr6 }
-      is(0x7) { ret := SSegPattern.Nr7 }
-      is(0x8) { ret := SSegPattern.Nr8 }
-      is(0x9) { ret := SSegPattern.Nr9 }
-      is(0xA) { ret := SSegPattern.NrA }
-      is(0xB) { ret := SSegPattern.NrB }
-      is(0xC) { ret := SSegPattern.NrC }
-      is(0xD) { ret := SSegPattern.NrD }
-      is(0xE) { ret := SSegPattern.NrE }
-      is(0xF) { ret := SSegPattern.NrF }
-      default { ret := SSegPattern.blank }
+      is(0x0) {
+        ret := SSegPattern.Nr0
+      }
+      is(0x1) {
+        ret := SSegPattern.Nr1
+      }
+      is(0x2) {
+        ret := SSegPattern.Nr2
+      }
+      is(0x3) {
+        ret := SSegPattern.Nr3
+      }
+      is(0x4) {
+        ret := SSegPattern.Nr4
+      }
+      is(0x5) {
+        ret := SSegPattern.Nr5
+      }
+      is(0x6) {
+        ret := SSegPattern.Nr6
+      }
+      is(0x7) {
+        ret := SSegPattern.Nr7
+      }
+      is(0x8) {
+        ret := SSegPattern.Nr8
+      }
+      is(0x9) {
+        ret := SSegPattern.Nr9
+      }
+      is(0xA) {
+        ret := SSegPattern.NrA
+      }
+      is(0xB) {
+        ret := SSegPattern.NrB
+      }
+      is(0xC) {
+        ret := SSegPattern.NrC
+      }
+      is(0xD) {
+        ret := SSegPattern.NrD
+      }
+      is(0xE) {
+        ret := SSegPattern.NrE
+      }
+      is(0xF) {
+        ret := SSegPattern.NrF
+      }
+      default {
+        ret := SSegPattern.blank
+      }
     }
-    return ret
+    ret
   }
 }

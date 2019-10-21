@@ -8,8 +8,8 @@ case class Fibonacci(limitN: Int, resultLimit: Int) extends Component {
   val widthResult = log2Up(resultLimit)
 
   val io = new Bundle {
-    val start   = in  Bool
-    val n       = in  UInt(widthN bits)
+    val start   = in Bool
+    val n       = in UInt(widthN bits)
     val ready   = out Bool
     val done    = out Bool
     val result  = out UInt(widthResult bits)
@@ -21,12 +21,12 @@ case class Fibonacci(limitN: Int, resultLimit: Int) extends Component {
     val stateDone = new State
 
     val nReg = Reg(UInt(widthN bits)) init(0)
-    val t0Reg = Reg(UInt(widthResult bits)) init (0)
-    val t1Reg = Reg(UInt(widthResult bits)) init (0)
+    val t0Reg = Reg(UInt(widthResult bits)) init(0)
+    val t1Reg = Reg(UInt(widthResult bits)) init(0)
 
     stateIdle
       .whenIsActive {
-        when(io.start) {
+        when (io.start) {
           t0Reg := 0
           t1Reg := 1
           nReg := io.n
@@ -52,7 +52,9 @@ case class Fibonacci(limitN: Int, resultLimit: Int) extends Component {
         }
       }
 
-    stateDone.whenIsActive { goto(stateIdle) }
+    stateDone.whenIsActive {
+      goto(stateIdle)
+    }
   }
 
   io.ready := fibonacciFsm.isActive(fibonacciFsm.stateIdle)

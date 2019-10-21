@@ -27,7 +27,7 @@ object FibonacciBCDSim {
         dut.clockDomain.waitSampling(1)
         dut.io.start #= true
 
-        dut.clockDomain.waitSampling(b match {case 0 | 1 => 21 + 3; case x if x > 20 => 6; case _ => 21 + b + 2})
+        dut.clockDomain.waitSampling(b match { case 0 | 1 => 21 + 3; case x if x > 20 => 6; case _ => 21 + b + 2 })
 
         dut.io.start #= false
         dut.clockDomain.waitSampling(1)

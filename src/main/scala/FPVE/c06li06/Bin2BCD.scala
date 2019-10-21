@@ -12,17 +12,17 @@ case class Bin2BCD(widthN: Int) extends Component {
     var i = 0
     while (n != 0) {
       i += 1
-      n = n/10
+      n = n / 10
     }
     i
   }
 
   val nibbleResult = BCDNibble(widthN)
-  val widthResult =  nibbleResult * NIBBLE
+  val widthResult = nibbleResult * NIBBLE
 
   val io = new Bundle {
-    val start   = in  Bool
-    val n       = in  UInt(widthN bits)
+    val start   = in Bool
+    val n       = in UInt(widthN bits)
     val ready   = out Bool
     val done    = out Bool
     val result  = out UInt(widthResult bits)
@@ -36,9 +36,9 @@ case class Bin2BCD(widthN: Int) extends Component {
     val nRegNext = UInt(widthCounter bits)
     val nReg = RegNext(nRegNext) init(0)
     val psRegNext = UInt(widthN bits)
-    val psReg = RegNext(psRegNext) init (0)
+    val psReg = RegNext(psRegNext) init(0)
     val bcdRegNext = UInt(widthResult bits)
-    val bcdReg = RegNext(bcdRegNext) init (0)
+    val bcdReg = RegNext(bcdRegNext) init(0)
 
     nRegNext := nReg
     psRegNext := psReg
@@ -60,7 +60,7 @@ case class Bin2BCD(widthN: Int) extends Component {
         psRegNext := psReg |<< 1
 
         val bcdRegFixed = UInt(widthResult bits)
-        for ( i <- 0 until nibbleResult) {
+        for (i <- 0 until nibbleResult) {
           val base = i * NIBBLE
           val nibble = bcdReg(base + 3 downto base)
           bcdRegFixed(base + 3 downto base) := (nibble > 4) ? (nibble + 3) | nibble
@@ -74,7 +74,9 @@ case class Bin2BCD(widthN: Int) extends Component {
         }
       }
 
-    stateDone.whenIsActive { goto(stateIdle) }
+    stateDone.whenIsActive {
+      goto(stateIdle)
+    }
   }
 
   io.ready := bin2bcdFsm.isActive(bin2bcdFsm.stateIdle)

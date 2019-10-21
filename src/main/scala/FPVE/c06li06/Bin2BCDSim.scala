@@ -33,12 +33,12 @@ object Bin2BCDSim {
 
         assert(dut.io.done.toBoolean)
 
-        def Int2BCD(number: Int) : Int = {
+        def Int2BCD(number: Int): Int = {
           val numberList = new ListBuffer[Int]()
           var n = number
           while (n != 0) {
             numberList.prepend(n % 10)
-            n = n/10
+            n = n / 10
           }
           numberList.fold(0)((acc, s) => acc * 16 + s)
         }
