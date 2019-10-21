@@ -2,6 +2,7 @@ package FPVE.c06ex03
 
 import spinal.core._
 import spinal.lib.fsm._
+import FPVE.c04ex03.BCDSSeg
 import FPVE.c06ex02.BCD2Bin
 import FPVE.c06li04.Fibonacci
 import FPVE.c06li06.Bin2BCD
@@ -11,14 +12,17 @@ class FibonacciBCD extends Component {
   val fibonacciOutputLimit = 6765
 
   val NIBBLE = 4
+  val BYTE   = 8
+  val ssegNr = 4
   val bcdWidth = 2 * NIBBLE
-  val ssegWidth = 4 * NIBBLE
+  val ssegWidth = ssegNr * NIBBLE
+  val outputWidth = ssegNr * BYTE
   val resultWidth = log2Up(fibonacciOutputLimit)
 
   val io = new Bundle {
     val start   = in  Bool
-    val n       = in  UInt(bcdWidth bits)
-    val result  = out UInt(ssegWidth bits)
+    val n       = in  UInt (bcdWidth bits)
+    val result  = out Bits (outputWidth bits)
   }
 
   val bcd2Bin = BCD2Bin(bcdWidth)
@@ -81,17 +85,23 @@ class FibonacciBCD extends Component {
         bin2BCD.io.start := True
 
         when(bin2BCD.io.done) {
+          ssegReg := bin2BCD.io.result.resized
+
           goto(stateDone)
         }
       }
 
     stateDone
       .whenIsActive {
-        ssegReg := bin2BCD.io.result.resized
-
         goto(stateIdle)
       }
   }
 
-  io.result := fibonacciBCDFsm.ssegReg
+  val ssegReg = fibonacciBCDFsm.ssegReg.subdivideIn(NIBBLE bits)
+  val result = Vec(Bits(BYTE bits), ssegNr)
+  for (i <- 0 until ssegNr) {
+    result(i) := BCDSSeg(ssegReg(i))
+  }
+
+  io.result := result.asBits
 }

@@ -31,17 +31,17 @@ case class RotatingLEDBanner(interval: Int) extends Component {
   //
   val patternReg = Reg(Bits(patternWidth bits)) init (B((patternWidth - 1 downto 0) -> true))
   patternReg := counter.io.value.mux(
-    0 -> SSeg.patternNr0 ## SSeg.patternNr1 ## SSeg.patternNr2 ## SSeg.patternNr3,
-    1 -> SSeg.patternNr1 ## SSeg.patternNr2 ## SSeg.patternNr3 ## SSeg.patternNr4,
-    2 -> SSeg.patternNr2 ## SSeg.patternNr3 ## SSeg.patternNr4 ## SSeg.patternNr5,
-    3 -> SSeg.patternNr3 ## SSeg.patternNr4 ## SSeg.patternNr5 ## SSeg.patternNr6,
-    4 -> SSeg.patternNr4 ## SSeg.patternNr5 ## SSeg.patternNr6 ## SSeg.patternNr7,
-    5 -> SSeg.patternNr5 ## SSeg.patternNr6 ## SSeg.patternNr7 ## SSeg.patternNr8,
-    6 -> SSeg.patternNr6 ## SSeg.patternNr7 ## SSeg.patternNr8 ## SSeg.patternNr9,
-    7 -> SSeg.patternNr7 ## SSeg.patternNr8 ## SSeg.patternNr9 ## SSeg.patternNr0,
-    8 -> SSeg.patternNr8 ## SSeg.patternNr9 ## SSeg.patternNr0 ## SSeg.patternNr1,
-    9 -> SSeg.patternNr9 ## SSeg.patternNr0 ## SSeg.patternNr1 ## SSeg.patternNr2,
-    default -> SSeg.patternFull ## SSeg.patternFull ## SSeg.patternFull ## SSeg.patternFull
+    0 -> SSegPattern.Nr0 ## SSegPattern.Nr1 ## SSegPattern.Nr2 ## SSegPattern.Nr3,
+    1 -> SSegPattern.Nr1 ## SSegPattern.Nr2 ## SSegPattern.Nr3 ## SSegPattern.Nr4,
+    2 -> SSegPattern.Nr2 ## SSegPattern.Nr3 ## SSegPattern.Nr4 ## SSegPattern.Nr5,
+    3 -> SSegPattern.Nr3 ## SSegPattern.Nr4 ## SSegPattern.Nr5 ## SSegPattern.Nr6,
+    4 -> SSegPattern.Nr4 ## SSegPattern.Nr5 ## SSegPattern.Nr6 ## SSegPattern.Nr7,
+    5 -> SSegPattern.Nr5 ## SSegPattern.Nr6 ## SSegPattern.Nr7 ## SSegPattern.Nr8,
+    6 -> SSegPattern.Nr6 ## SSegPattern.Nr7 ## SSegPattern.Nr8 ## SSegPattern.Nr9,
+    7 -> SSegPattern.Nr7 ## SSegPattern.Nr8 ## SSegPattern.Nr9 ## SSegPattern.Nr0,
+    8 -> SSegPattern.Nr8 ## SSegPattern.Nr9 ## SSegPattern.Nr0 ## SSegPattern.Nr1,
+    9 -> SSegPattern.Nr9 ## SSegPattern.Nr0 ## SSegPattern.Nr1 ## SSegPattern.Nr2,
+    default -> SSegPattern.blank ## SSegPattern.blank ## SSegPattern.blank ## SSegPattern.blank
   )
 
   io.pattern := patternReg
