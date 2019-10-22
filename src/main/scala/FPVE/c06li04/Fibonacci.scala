@@ -20,16 +20,23 @@ case class Fibonacci(limitN: Int, resultLimit: Int) extends Component {
     val stateOp = new State
     val stateDone = new State
 
-    val nReg = Reg(UInt(widthN bits)) init(0)
-    val t0Reg = Reg(UInt(widthResult bits)) init(0)
-    val t1Reg = Reg(UInt(widthResult bits)) init(0)
+    val nRegNext = UInt(widthN bits)
+    val nReg = RegNext(nRegNext) init(0)
+    val t0RegNext = UInt(widthResult bits)
+    val t0Reg = RegNext(t0RegNext) init(0)
+    val t1RegNext = UInt(widthResult bits)
+    val t1Reg = RegNext(t1RegNext) init(0)
+
+    nRegNext := nReg
+    t0RegNext := t0Reg
+    t1RegNext := t1Reg
 
     stateIdle
       .whenIsActive {
         when (io.start) {
-          t0Reg := 0
-          t1Reg := 1
-          nReg := io.n
+          t0RegNext := 0
+          t1RegNext := 1
+          nRegNext := io.n
 
           goto(stateOp)
         }
@@ -38,15 +45,15 @@ case class Fibonacci(limitN: Int, resultLimit: Int) extends Component {
     stateOp
       .whenIsActive {
         when (nReg === 0) {
-          t1Reg := 0
+          t1RegNext := 0
 
           goto(stateDone)
         } elsewhen (nReg === 1) {
           goto(stateDone)
         } otherwise {
-          t1Reg := t1Reg + t0Reg
-          t0Reg := t1Reg
-          nReg := nReg - 1
+          t1RegNext := t1Reg + t0Reg
+          t0RegNext := t1Reg
+          nRegNext := nReg - 1
 
           goto(stateOp)
         }
