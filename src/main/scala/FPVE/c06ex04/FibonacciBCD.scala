@@ -56,7 +56,7 @@ class FibonacciBCD extends Component {
     stateIdle
       .whenIsActive {
         when (io.start) {
-          when (nibbleHigh < 2  || (nibbleHigh === 2 && nibbleLow === 0)) {
+          when (nibbleHigh < 2 || (nibbleHigh === 2 && nibbleLow === 0)) {
             goto(stateBCD2Bin)
           } otherwise {
             val ssegOverflowLimit = 0x9999
