@@ -15,10 +15,10 @@ class PlayingNotes extends Component {
   val toneReg = Reg(UInt(toneWidth bits)) init(0)
   toneReg := toneReg + 1
 
-  val selNote = toneReg(28 downto 25)
-  val octave = selNote.muxList(for (index <- 0 until 16) yield (index, U(index / 3)))
+  val selNote  = toneReg(28 downto 25)
+  val octave   = selNote.muxList(for (index <- 0 until 16) yield (index, U(index / 3)))
   val noteHigh = selNote.muxList(for (index <- 0 until 16) yield (index, U(index % 3)))
-  val note = noteHigh @@ toneReg(24 downto 23)
+  val note     = noteHigh @@ toneReg(24 downto 23)
 
   val clockDivider = note.mux(
     0 -> U(512 - 1),
@@ -41,7 +41,7 @@ class PlayingNotes extends Component {
 
   val counterNoteReg = Reg(UInt(9 bits)) init(511)
   counterNoteReg := counterNoteReg - 1
-  when (counterNoteReg === 0) {
+  when(counterNoteReg === 0) {
     counterNoteReg := clockDivider
   }
 
@@ -52,12 +52,12 @@ class PlayingNotes extends Component {
 
   val counterOctaveReg = Reg(UInt(8 bits)) init(255)
   counterOctaveReg := counterOctaveReg - 1
-  when (counterOctaveReg === 0) {
+  when(counterOctaveReg === 0) {
     counterOctaveReg := octave.muxList(for (index <- 0 until 8) yield (index, octaveMux(index)))
   }
 
   val speakerReg = Reg(Bool) init(False)
-  when (counterNoteReg === 0 && counterOctaveReg === 0) {
+  when(counterNoteReg === 0 && counterOctaveReg === 0) {
     speakerReg := !speakerReg
   }
 

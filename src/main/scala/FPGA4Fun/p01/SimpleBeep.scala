@@ -11,12 +11,12 @@ case class SimpleBeep(limit: Int) extends Component {
 
   val counterReg = Reg(UInt(width bits)) init(limit - 1)
   counterReg := counterReg - 1
-  when (counterReg === 0) {
+  when(counterReg === 0) {
     counterReg := limit - 1
   }
 
   val speakerReg = Reg(Bool) init(False)
-  when (counterReg === 0) {
+  when(counterReg === 0) {
     speakerReg := !speakerReg
   }
 

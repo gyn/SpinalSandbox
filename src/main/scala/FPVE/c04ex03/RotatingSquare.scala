@@ -3,9 +3,10 @@ package FPVE.c04ex03
 import spinal.core._
 
 case class RotatingSquare(interval: Int) extends Component {
-  val ssegNr = 4
+  val ssegNr    = 4
   val ssegWidth = 8
   val patternNr = 8
+
   val patternWidth = ssegNr * ssegWidth
 
   val io = new Bundle {
@@ -24,7 +25,7 @@ case class RotatingSquare(interval: Int) extends Component {
   //
   val counter = ModNCounter(limit = patternNr)
   counter.io.tick := io.en && timer.io.tick
-  counter.io.up := io.cw
+  counter.io.up   := io.cw
 
   //
   // Pattern register

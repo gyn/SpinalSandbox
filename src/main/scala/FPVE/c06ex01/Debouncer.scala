@@ -5,20 +5,20 @@ import spinal.lib.fsm._
 
 case class Debouncer(cycles: Int) extends Component {
   val io = new Bundle {
-    val level   = in  Bool
-    val output  = out Bool
+    val level  = in  Bool
+    val output = out Bool
   }
 
   val debouncerFsm = new StateMachine {
     val stateInit = new State with EntryPoint
-    val stateLevelHigh = new State
+    val stateLevelHigh    = new State
     val stateNegedgeDelay = new StateDelay(cyclesCount = cycles)
-    val stateLevelLow = new State
+    val stateLevelLow     = new State
     val statePosedgeDelay = new StateDelay(cyclesCount = cycles)
 
     stateInit
       .whenIsActive {
-        when (io.level) {
+        when(io.level) {
           goto(stateLevelHigh)
         } otherwise {
           goto(stateLevelLow)
@@ -27,13 +27,13 @@ case class Debouncer(cycles: Int) extends Component {
 
     stateLevelHigh
       .whenIsActive {
-        when (!io.level) {
+        when(!io.level) {
           goto(stateNegedgeDelay)
         }
       }
 
     stateNegedgeDelay.whenCompleted {
-      when (io.level) {
+      when(io.level) {
         goto(stateLevelHigh)
       } otherwise {
         goto(stateLevelLow)
@@ -42,13 +42,13 @@ case class Debouncer(cycles: Int) extends Component {
 
     stateLevelLow
       .whenIsActive {
-        when (io.level) {
+        when(io.level) {
           goto(statePosedgeDelay)
         }
       }
 
     statePosedgeDelay.whenCompleted {
-      when (io.level) {
+      when(io.level) {
         goto(stateLevelHigh)
       } otherwise {
         goto(stateLevelLow)

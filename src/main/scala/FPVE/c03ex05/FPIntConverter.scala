@@ -3,8 +3,8 @@ package FPVE.c03ex05
 import spinal.core._
 
 class FP2Int extends Component {
-  val intBits = 8
-  val expBits = 4
+  val intBits  = 8
+  val expBits  = 4
   val fracBits = 8
 
   val io = new Bundle {
@@ -20,7 +20,7 @@ class FP2Int extends Component {
   // 1st stage : work out the number
   //
   val valueFixed = io.frac << io.exp
-  val magnitude = valueFixed(15 downto 8)
+  val magnitude  = valueFixed(15 downto 8)
 
   //
   //  2nd stage : deal with output
@@ -69,15 +69,15 @@ class Int2FP extends Component {
 
   io.sign := io.value.msb
   io.frac := valueFixed |<< shift
-  io.exp := valueFixed.muxList(for (index <- 0 until limit) yield (index, U(ffs(index))))
+  io.exp  := valueFixed.muxList(for (index <- 0 until limit) yield (index, U(ffs(index))))
 }
 
 class Int2IntTester extends Component {
   val intBits = 8
 
   val io = new Bundle {
-    val inValue   = in  SInt(intBits bits)
-    val outValue  = out SInt(intBits bits)
+    val inValue  = in  SInt(intBits bits)
+    val outValue = out SInt(intBits bits)
   }
 
   val int2FP = new Int2FP
@@ -86,7 +86,7 @@ class Int2IntTester extends Component {
   val fp2Int = new FP2Int
   fp2Int.io.sign := int2FP.io.sign
   fp2Int.io.frac := int2FP.io.frac
-  fp2Int.io.exp := int2FP.io.exp
+  fp2Int.io.exp  := int2FP.io.exp
 
   io.outValue := fp2Int.io.value
 }

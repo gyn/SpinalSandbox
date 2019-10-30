@@ -29,8 +29,9 @@ case class BarrelShifterLeft(width: Int) extends Component {
   t(0) := io.a
 
   for (i <- 0 until nbit) {
-    when (io.amt(i)) {
+    when(io.amt(i)) {
       val limit = 1 << i
+
       t(i + 1) := t(i)(width - limit - 1 downto 0) ## t(i)(width - 1 downto width - limit)
     } otherwise {
       t(i + 1) := t(i)
@@ -54,8 +55,9 @@ case class BarrelShifterRight(width: Int) extends Component {
   t(0) := io.a
 
   for (i <- 0 until nbit) {
-    when (io.amt(i)) {
+    when(io.amt(i)) {
       val limit = 1 << i
+
       t(i + 1) := t(i)(limit - 1 downto 0) ## t(i)(width - 1 downto limit)
     } otherwise {
       t(i + 1) := t(i)
@@ -76,11 +78,11 @@ case class BarrelShifter(width: Int) extends Component {
   }
 
   val barrelShifterRight = BarrelShifterRight(width = width)
-  barrelShifterRight.io.a := io.a
+  barrelShifterRight.io.a   := io.a
   barrelShifterRight.io.amt := io.amt
 
   val barrelShifterLeft = BarrelShifterLeft(width = width)
-  barrelShifterLeft.io.a := io.a
+  barrelShifterLeft.io.a   := io.a
   barrelShifterLeft.io.amt := io.amt
 
   io.y := io.lr ? barrelShifterRight.io.y | barrelShifterLeft.io.y
@@ -97,7 +99,7 @@ case class BarrelShifterByReverse(width: Int) extends Component {
   }
   val barrelShifterRight = BarrelShifterRight(width = width)
   barrelShifterRight.io.amt := io.amt
-  barrelShifterRight.io.a := io.lr ? io.a | Reverse(io.a)
+  barrelShifterRight.io.a   := io.lr ? io.a | Reverse(io.a)
 
   io.y := io.lr ? barrelShifterRight.io.y | Reverse(barrelShifterRight.io.y)
 }

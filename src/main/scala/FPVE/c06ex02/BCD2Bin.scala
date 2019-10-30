@@ -7,6 +7,7 @@ case class BCD2Bin(widthN: Int) extends Component {
   val NIBBLE = 4
 
   require((widthN & (NIBBLE - 1)) == 0)
+
   val widthCounter = widthN / NIBBLE
 
   def binWidth(bcdWidth: Int) = {
@@ -17,35 +18,35 @@ case class BCD2Bin(widthN: Int) extends Component {
   val widthResult = binWidth(widthN)
 
   val io = new Bundle {
-    val start   = in  Bool
-    val n       = in  UInt(widthN bits)
-    val ready   = out Bool
-    val done    = out Bool
-    val result  = out UInt(widthResult bits)
+    val start  = in  Bool
+    val n      = in  UInt(widthN bits)
+    val ready  = out Bool
+    val done   = out Bool
+    val result = out UInt(widthResult bits)
   }
 
   val bcd2binFsm = new StateMachine {
     val stateIdle = new State with EntryPoint
-    val stateOp = new State
+    val stateOp   = new State
     val stateDone = new State
 
-    val nRegNext = UInt(widthCounter bits)
-    val nReg = RegNext(nRegNext) init(0)
-    val psRegNext = UInt(widthN bits)
-    val psReg = RegNext(psRegNext) init(0)
+    val nRegNext   = UInt(widthCounter bits)
+    val nReg       = RegNext(nRegNext) init(0)
+    val psRegNext  = UInt(widthN bits)
+    val psReg      = RegNext(psRegNext) init(0)
     val binRegNext = UInt(widthResult bits)
-    val binReg = RegNext(binRegNext) init(0)
+    val binReg     = RegNext(binRegNext) init(0)
 
-    nRegNext := nReg
-    psRegNext := psReg
+    nRegNext   := nReg
+    psRegNext  := psReg
     binRegNext := binReg
 
     stateIdle
       .whenIsActive {
-        when (io.start) {
-          psReg := io.n
+        when(io.start) {
+          psReg      := io.n
           binRegNext := 0
-          nRegNext := widthCounter
+          nRegNext   := widthCounter
 
           goto(stateOp)
         }
@@ -61,7 +62,7 @@ case class BCD2Bin(widthN: Int) extends Component {
         binRegNext := (binReg |<< 3) + (binReg |<< 1) + psReg(widthN - 1 downto widthN - 4)
 
         nRegNext := nReg - 1
-        when (nRegNext === 0) {
+        when(nRegNext === 0) {
           goto(stateDone)
         }
       }
@@ -71,7 +72,7 @@ case class BCD2Bin(widthN: Int) extends Component {
     }
   }
 
-  io.ready := bcd2binFsm.isActive(bcd2binFsm.stateIdle)
-  io.done := bcd2binFsm.isActive(bcd2binFsm.stateDone)
+  io.ready  := bcd2binFsm.isActive(bcd2binFsm.stateIdle)
+  io.done   := bcd2binFsm.isActive(bcd2binFsm.stateDone)
   io.result := bcd2binFsm.binRegNext
 }

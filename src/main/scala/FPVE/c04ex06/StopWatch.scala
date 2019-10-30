@@ -16,12 +16,12 @@ case class StopWatchCell(limit: Int) extends Component {
   }
 
   val countReg = Reg(UInt(width bits)) init(0)
-  when (io.clear) {
+  when(io.clear) {
     countReg := 0
   } elsewhen (io.tick) {
-    when (io.up) {
-      when (countReg === limit) {
-        when (io.hold) {
+    when(io.up) {
+      when(countReg === limit) {
+        when(io.hold) {
           countReg := countReg
         } otherwise {
           countReg := 0
@@ -30,8 +30,8 @@ case class StopWatchCell(limit: Int) extends Component {
         countReg := countReg + 1
       }
     } otherwise {
-      when (countReg === 0) {
-        when (io.hold) {
+      when(countReg === 0) {
+        when(io.hold) {
           countReg := countReg
         } otherwise {
           countReg := limit
@@ -46,7 +46,7 @@ case class StopWatchCell(limit: Int) extends Component {
 
   io.count := countReg
 
-  when (io.up) {
+  when(io.up) {
     io.tickOut := io.tick && (countReg === limit)
     io.holdOut := io.hold && (countReg === limit)
   } otherwise {
@@ -82,8 +82,8 @@ case class StopWatch(interval: Int) extends Component {
   var holdOut = True
 
   for (index <- 0 until number) {
-    stopWatchCellArray(index).io.tick := tickOut
-    stopWatchCellArray(index).io.up := io.up
+    stopWatchCellArray(index).io.tick  := tickOut
+    stopWatchCellArray(index).io.up    := io.up
     stopWatchCellArray(index).io.clear := io.clear
 
     io.hex(index) := stopWatchCellArray(index).io.count.resized

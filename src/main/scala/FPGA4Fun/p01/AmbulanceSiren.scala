@@ -18,12 +18,12 @@ case class AmbulanceSiren(limit: Int) extends Component {
 
   val counterReg = Reg(UInt(width bits)) init(limit - 1)
   counterReg := counterReg - 1
-  when (counterReg === 0) {
+  when(counterReg === 0) {
     counterReg := toneReg.msb ? U(limit - 1) | U(limit / 2 - 1)
   }
 
   val speakerReg = Reg(Bool) init(False)
-  when (counterReg === 0) {
+  when(counterReg === 0) {
     speakerReg := !speakerReg
   }
 

@@ -13,9 +13,9 @@ import spinal.core._
 //
 class GreaterThan2b extends Component {
   val io = new Bundle {
-    val gt  = out Bool
-    val a   = in  Bits(2 bits)
-    val b   = in  Bits(2 bits)
+    val a  = in  Bits(2 bits)
+    val b  = in  Bits(2 bits)
+    val gt = out Bool
   }
 
   val p1 =  io.a(1) && !io.b(1)
@@ -36,9 +36,9 @@ class GreaterThan2b extends Component {
 //
 class Equal2b extends Component {
   val io = new Bundle {
-    val eq  = out Bool
-    val a   = in  Bits(2 bits)
-    val b   = in  Bits(2 bits)
+    val a  = in  Bits(2 bits)
+    val b  = in  Bits(2 bits)
+    val eq = out Bool
   }
 
   val p1 = !io.a(1) && !io.a(0) && !io.b(1) && !io.b(0)
@@ -79,9 +79,9 @@ class Equal2b extends Component {
 //
 class GreaterThan4b extends Component {
   val io = new Bundle {
-    val gt  = out Bool
-    val a   = in  Bits(4 bits)
-    val b   = in  Bits(4 bits)
+    val a  = in  Bits(4 bits)
+    val b  = in  Bits(4 bits)
+    val gt = out Bool
   }
 
   val greaterThan2bHi = new GreaterThan2b

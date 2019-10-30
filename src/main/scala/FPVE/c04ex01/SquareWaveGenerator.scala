@@ -6,9 +6,9 @@ case class SquareWaveGenerator(configBits: Int) extends Component {
   val scalar = 5
 
   val io = new Bundle {
-    val m       = in  UInt(configBits bits)
-    val n       = in  UInt(configBits bits)
-    val signal  = out Bool
+    val m      = in  UInt(configBits bits)
+    val n      = in  UInt(configBits bits)
+    val signal = out Bool
   }
 
   val width = log2Up(scalar * 2 * ((1 << configBits) - 1))
@@ -17,9 +17,9 @@ case class SquareWaveGenerator(configBits: Int) extends Component {
   // limitM = m * 5 = m << 2 + m
   // limitSum = (m + n) * 5 = (m + n) << 2 + (m + n)
   //
-  val sum = io.m.resize(configBits + 1) + io.n
+  val sum      = io.m.resize(configBits + 1) + io.n
   val limitSum = (sum @@ U"2'0").resize(width bits) + sum
-  val limitM = (io.m @@ U"2'0").resize(width bits) + io.m
+  val limitM   = (io.m @@ U"2'0").resize(width bits) + io.m
 
   val counterReg = Reg(UInt(width bits)) init(0)
   counterReg := (counterReg === (limitSum - 1)) ? U(0) | counterReg + 1

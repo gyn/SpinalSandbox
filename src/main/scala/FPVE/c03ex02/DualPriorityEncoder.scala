@@ -8,7 +8,7 @@ case class PriorityEncoderMux(width: Int) extends Component {
   val io = new Bundle {
     val request = in  Bits(width bits)
     val encode  = out UInt(nbit bits)
-    val mask    = out Bits((width - 1) bits)
+    val mask    = out Bits(width - 1 bits)
   }
 
   val limit = 1 << width
@@ -26,6 +26,7 @@ case class PriorityEncoderMux(width: Int) extends Component {
   // Following is a workaround
   //
   io.encode := Vec(for (index <- 0 until limit) yield U(ffs(index))).read(U(io.request))
+
   io.mask := Vec(for (index <- 0 until limit) yield U(mask(ffs(index)))).read(U(io.request)).asBits
 }
 
@@ -36,45 +37,45 @@ class PriorityEncoder12b extends Component {
   val io = new Bundle {
     val request = in  Bits(width bits)
     val encode  = out UInt(nbit bits)
-    val mask    = out Bits((width - 1) bits)
+    val mask    = out Bits(width - 1 bits)
   }
 
-  when (io.request(11)) {
+  when(io.request(11)) {
     io.encode := 12
-    io.mask := B"111_1111_1111"
+    io.mask   := B"111_1111_1111"
   } elsewhen (io.request(10)) {
     io.encode := 11
-    io.mask := B"011_1111_1111"
+    io.mask   := B"011_1111_1111"
   } elsewhen (io.request(9)) {
     io.encode := 10
-    io.mask := B"001_1111_1111"
+    io.mask   := B"001_1111_1111"
   } elsewhen (io.request(8)) {
     io.encode := 9
-    io.mask := B"000_1111_1111"
+    io.mask   := B"000_1111_1111"
   } elsewhen (io.request(7)) {
     io.encode := 8
-    io.mask := B"000_0111_1111"
+    io.mask   := B"000_0111_1111"
   } elsewhen (io.request(6)) {
     io.encode := 7
-    io.mask := B"000_0011_1111"
+    io.mask   := B"000_0011_1111"
   } elsewhen (io.request(5)) {
     io.encode := 6
-    io.mask := B"000_0001_1111"
+    io.mask   := B"000_0001_1111"
   } elsewhen (io.request(4)) {
     io.encode := 5
-    io.mask := B"000_0000_1111"
+    io.mask   := B"000_0000_1111"
   } elsewhen (io.request(3)) {
     io.encode := 4
-    io.mask := B"000_0000_0111"
+    io.mask   := B"000_0000_0111"
   } elsewhen (io.request(2)) {
     io.encode := 3
-    io.mask := B"000_0000_0011"
+    io.mask   := B"000_0000_0011"
   } elsewhen (io.request(1)) {
     io.encode := 2
-    io.mask := B"000_0000_0001"
+    io.mask   := B"000_0000_0001"
   } elsewhen (io.request(0)) {
     io.encode := 1
-    io.mask := B"000_0000_0000"
+    io.mask   := B"000_0000_0000"
   } otherwise {
     io.encode.clearAll()
     io.mask.clearAll()

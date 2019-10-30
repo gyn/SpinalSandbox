@@ -5,28 +5,28 @@ import spinal.lib.BufferCC
 
 case class Debouncer(width: Int) extends Component {
   val io = new Bundle {
-    val button  = in  Bool
-    val state   = out Bool
-    val up      = out Bool
-    val down    = out  Bool
+    val button = in  Bool
+    val state  = out Bool
+    val up     = out Bool
+    val down   = out Bool
   }
   val buttonSync = BufferCC(io.button)
 
-  val stateReg = Reg(Bool)
+  val stateReg   = Reg(Bool)
   val counterReg = Reg(UInt(width bits))
 
   val buttonIdle = stateReg === buttonSync
   counterReg := counterReg + 1
-  when (buttonIdle) {
+  when(buttonIdle) {
     counterReg := 0
   }
 
   val buttonCounterMax = counterReg.andR
-  when (buttonCounterMax) {
+  when(buttonCounterMax) {
     stateReg := !stateReg
   }
 
   io.state := stateReg
-  io.up := !buttonIdle && buttonCounterMax && stateReg
-  io.down := !buttonIdle && buttonCounterMax && !stateReg
+  io.up    := !buttonIdle && buttonCounterMax && stateReg
+  io.down  := !buttonIdle && buttonCounterMax && !stateReg
 }

@@ -16,17 +16,17 @@ case class PoliceSiren(limit: Int) extends Component {
   val toneReg = Reg(UInt(toneWidth bits)) init(0)
   toneReg := toneReg + 1
 
-  val ramp = toneReg.msb ? toneReg(22 downto 16) | ~toneReg(22 downto 16)
+  val ramp         = toneReg.msb ? toneReg(22 downto 16) | ~toneReg(22 downto 16)
   val clockDivider = U"2'01" @@ ramp @@ U"7'b0000000"
 
   val counterReg = Reg(UInt(width bits)) init(limit - 1)
   counterReg := counterReg - 1
-  when (counterReg === 0) {
+  when(counterReg === 0) {
     counterReg := clockDivider
   }
 
   val speakerReg = Reg(Bool) init(False)
-  when (counterReg === 0) {
+  when(counterReg === 0) {
     speakerReg := !speakerReg
   }
 

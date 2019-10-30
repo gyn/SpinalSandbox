@@ -8,55 +8,56 @@ class FibonacciBCD extends Component {
   val bcdLimit = 20
   val fibonacciOutputLimit = 6765
 
-  val bcdNr = 2
+  val bcdNr  = 2
   val ssegNr = 4
   val NIBBLE = 4
-  val BYTE = 8
-  val ssegWidth = ssegNr * NIBBLE
-  val bcdWidth = bcdNr * NIBBLE
+  val BYTE   = 8
+
+  val ssegWidth   = ssegNr * NIBBLE
+  val bcdWidth    = bcdNr * NIBBLE
   val outputWidth = ssegNr * BYTE
 
   val io = new Bundle {
-    val start   = in  Bool
-    val n       = in  UInt(bcdWidth bits)
-    val result  = out Bits(outputWidth bits)
+    val start  = in  Bool
+    val n      = in  UInt(bcdWidth bits)
+    val result = out Bits(outputWidth bits)
   }
 
   val fibonacciBCDFsm = new StateMachine {
-    val stateIdle = new State with EntryPoint
-    val stateBin2BCD = new State
+    val stateIdle      = new State with EntryPoint
+    val stateBin2BCD   = new State
     val stateFibonacci = new State
-    val stateBCD2Bin = new State
-    val stateDone = new State
+    val stateBCD2Bin   = new State
+    val stateDone      = new State
 
     val nRegNext = UInt(log2Up(bcdLimit) bits)
-    val nReg = RegNext(nRegNext) init(0)
+    val nReg     = RegNext(nRegNext) init(0)
 
     nRegNext := nReg
 
     val t0RegNext = UInt(log2Up(fibonacciOutputLimit) bits)
-    val t0Reg = RegNext(t0RegNext) init(0)
+    val t0Reg     = RegNext(t0RegNext) init(0)
     val t1RegNext = UInt(log2Up(fibonacciOutputLimit) bits)
-    val t1Reg = RegNext(t1RegNext) init(0)
+    val t1Reg     = RegNext(t1RegNext) init(0)
 
     t0RegNext := t0Reg
     t1RegNext := t1Reg
 
-    val ssegRegNext = UInt(ssegWidth bits)
-    val ssegReg = RegNext(ssegRegNext) init(0)
+    val ssegRegNext   = UInt(ssegWidth bits)
+    val ssegReg       = RegNext(ssegRegNext) init (0)
     val resultRegNext = UInt(ssegWidth bits)
-    val resultReg = RegNext(resultRegNext) init(0)
+    val resultReg     = RegNext(resultRegNext) init (0)
 
-    ssegRegNext := ssegReg
+    ssegRegNext   := ssegReg
     resultRegNext := resultReg
 
     val nibbleHigh = io.n(7 downto 4)
-    val nibbleLow = io.n(3 downto 0)
+    val nibbleLow  = io.n(3 downto 0)
 
     stateIdle
       .whenIsActive {
-        when (io.start) {
-          when (nibbleHigh < 2 || (nibbleHigh === 2 && nibbleLow === 0)) {
+        when(io.start) {
+          when(nibbleHigh < 2 || (nibbleHigh === 2 && nibbleLow === 0)) {
             goto(stateBCD2Bin)
           } otherwise {
             val ssegOverflowLimit = 0x9999
@@ -85,24 +86,24 @@ class FibonacciBCD extends Component {
 
     stateFibonacci
       .whenIsActive {
-        when (nReg === 0) {
+        when(nReg === 0) {
           t1RegNext := 0
 
           // Prepare for stateBin2BCD
           resultRegNext := 0
-          nRegNext := log2Up(fibonacciOutputLimit)
+          nRegNext      := log2Up(fibonacciOutputLimit)
 
           goto(stateBin2BCD)
         } elsewhen (nReg === 1) {
           // Prepare for stateBin2BCD
           resultRegNext := 0
-          nRegNext := log2Up(fibonacciOutputLimit)
+          nRegNext      := log2Up(fibonacciOutputLimit)
 
           goto(stateBin2BCD)
         } otherwise {
           t1RegNext := t1Reg + t0Reg
           t0RegNext := t1Reg
-          nRegNext := nReg - 1
+          nRegNext  := nReg - 1
 
           goto(stateFibonacci)
         }
@@ -116,13 +117,14 @@ class FibonacciBCD extends Component {
         for (i <- 0 until ssegNr) {
           val base = i * NIBBLE
           val nibble = resultReg(base + 3 downto base)
+
           bcdRegFixed(base + 3 downto base) := (nibble > 4) ? (nibble + 3) | nibble
         }
 
         resultRegNext := bcdRegFixed(ssegWidth - 2 downto 0) @@ t1Reg.msb
 
         nRegNext := nReg - 1
-        when (nRegNext === 0) {
+        when(nRegNext === 0) {
           ssegRegNext := resultRegNext
 
           goto(stateDone)
@@ -136,7 +138,7 @@ class FibonacciBCD extends Component {
   }
 
   val ssegReg = fibonacciBCDFsm.ssegReg.subdivideIn(NIBBLE bits)
-  val result = Vec(Bits(BYTE bits), ssegNr)
+  val result  = Vec(Bits(BYTE bits), ssegNr)
   for (i <- 0 until ssegNr) {
     result(i) := BCDSSeg(ssegReg(i))
   }

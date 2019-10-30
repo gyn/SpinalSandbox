@@ -6,7 +6,7 @@ case class ModNTimer(limit: Int) extends Component {
   val width = log2Up(limit)
 
   val io = new Bundle {
-    val tick  = out Bool
+    val tick = out Bool
   }
 
   val counter = Reg(UInt(width bits)) init(0)
@@ -25,8 +25,8 @@ case class ModNCounter(limit: Int) extends Component {
   }
 
   val counter = Reg(UInt(width bits)) init(0)
-  when (io.tick) {
-    when (io.up) {
+  when(io.tick) {
+    when(io.up) {
       counter := (counter === U(limit - 1)) ? U(0) | (counter + 1)
     } otherwise {
       counter := (counter === U(0)) ? U(limit - 1) | (counter - 1)
@@ -38,12 +38,12 @@ case class ModNCounter(limit: Int) extends Component {
 
 object SSegPattern {
   val blank = B"8'b1111_1111"
-  val full = B"8'0000_0000"
+  val full  = B"8'b0000_0000"
 
   val upperSquare = B"8'b1001_1100"
   val lowerSquare = B"8'b1110_0010"
 
-  val leftBar = B"8'b1111_1001"
+  val leftBar  = B"8'b1111_1001"
   val rightBar = B"8'b1100_1111"
 
   val Nr0 = B"8'b1000_0001"
@@ -67,7 +67,7 @@ object SSegPattern {
 object BCDSSeg {
   def apply(input: UInt): Bits = {
     val ret = Bits(8 bits)
-    switch (input) {
+    switch(input) {
       is(0x0) {
         ret := SSegPattern.Nr0
       }
@@ -109,7 +109,7 @@ object BCDSSeg {
 object HexSSeg {
   def apply(input: UInt): Bits = {
     val ret = Bits(8 bits)
-    switch (input) {
+    switch(input) {
       is(0x0) {
         ret := SSegPattern.Nr0
       }

@@ -11,15 +11,15 @@ class DualEdgeDetectorMoore extends Component {
   }
 
   val detectorFsm = new StateMachine {
-    val stateInit = new State with EntryPoint
+    val stateInit      = new State with EntryPoint
     val stateLevelHigh = new State
-    val stateNegedge = new State
-    val stateLevelLow = new State
-    val statePosedge = new State
+    val stateNegedge   = new State
+    val stateLevelLow  = new State
+    val statePosedge   = new State
 
     stateInit
       .whenIsActive {
-        when (io.level) {
+        when(io.level) {
           goto(stateLevelHigh)
         } otherwise {
           goto(stateLevelLow)
@@ -28,21 +28,21 @@ class DualEdgeDetectorMoore extends Component {
 
     stateLevelHigh
       .whenIsActive {
-        when (!io.level) {
+        when(!io.level) {
           goto(stateNegedge)
         }
       }
 
-    stateNegedge.whenIsActive (goto(stateLevelLow))
+    stateNegedge.whenIsActive(goto(stateLevelLow))
 
     stateLevelLow
       .whenIsActive {
-        when (io.level) {
+        when(io.level) {
           goto(statePosedge)
         }
       }
 
-    statePosedge.whenIsActive (goto(stateLevelHigh))
+    statePosedge.whenIsActive(goto(stateLevelHigh))
   }
 
   io.negedge := detectorFsm.isActive(detectorFsm.stateNegedge)
@@ -57,13 +57,13 @@ class DualEdgeDetectorMealy extends Component {
   }
 
   val detectorFsm = new StateMachine {
-    val stateInit = new State with EntryPoint
+    val stateInit      = new State with EntryPoint
     val stateLevelHigh = new State
-    val stateLevelLow = new State
+    val stateLevelLow  = new State
 
     stateInit
       .whenIsActive {
-        when (io.level) {
+        when(io.level) {
           goto(stateLevelHigh)
         } otherwise {
           goto(stateLevelLow)
@@ -72,14 +72,14 @@ class DualEdgeDetectorMealy extends Component {
 
     stateLevelHigh
       .whenIsActive {
-        when (!io.level) {
+        when(!io.level) {
           goto(stateLevelLow)
         }
       }
 
     stateLevelLow
       .whenIsActive {
-        when (io.level) {
+        when(io.level) {
           goto(stateLevelHigh)
         }
       }

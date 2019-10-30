@@ -16,19 +16,19 @@ case class PoliceHighSpeedPursuitSiren(limit: Int) extends Component {
   val toneReg = Reg(UInt(toneWidth bits)) init(0)
   toneReg := toneReg + 1
 
-  val fastSweep = toneReg(23) ? toneReg(22 downto 16) | ~toneReg(22 downto 16)
-  val slowSweep = toneReg(26) ? toneReg(25 downto 19) | ~toneReg(25 downto 19)
-  val finalSweep = toneReg.msb ? slowSweep | fastSweep
+  val fastSweep    = toneReg(23) ? toneReg(22 downto 16) | ~toneReg(22 downto 16)
+  val slowSweep    = toneReg(26) ? toneReg(25 downto 19) | ~toneReg(25 downto 19)
+  val finalSweep   = toneReg.msb ? slowSweep | fastSweep
   val clockDivider = U"2'01" @@ finalSweep @@ U"7'b0000000"
 
   val counterReg = Reg(UInt(width bits)) init(limit - 1)
   counterReg := counterReg - 1
-  when (counterReg === 0) {
+  when(counterReg === 0) {
     counterReg := clockDivider
   }
 
   val speakerReg = Reg(Bool) init(False)
-  when (counterReg === 0) {
+  when(counterReg === 0) {
     speakerReg := !speakerReg
   }
 

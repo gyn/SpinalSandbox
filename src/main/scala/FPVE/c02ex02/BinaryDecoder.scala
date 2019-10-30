@@ -11,9 +11,9 @@ import spinal.core._
 //
 class BinaryDecoder2b extends Component {
   val io = new Bundle {
-    val output  = out Bits(4 bits)
-    val en      = in  Bool
-    val sel     = in  Bits(2 bits)
+    val en     = in  Bool
+    val sel    = in  Bits(2 bits)
+    val output = out Bits(4 bits)
   }
 
   io.output(3) := io.en &&  io.sel(1) &&  io.sel(0)
@@ -49,18 +49,18 @@ class BinaryDecoder2b extends Component {
 //
 class BinaryDecoder3b extends Component {
   val io = new Bundle {
-    val output  = out Bits(8 bits)
-    val en      = in  Bool
-    val sel     = in  Bits(3 bits)
+    val en     = in  Bool
+    val sel    = in  Bits(3 bits)
+    val output = out Bits(8 bits)
   }
 
   val binaryDecoder2bHi = new BinaryDecoder2b
   binaryDecoder2bHi.io.sel := io.sel(1 downto 0)
-  binaryDecoder2bHi.io.en := io.en && io.sel(2)
+  binaryDecoder2bHi.io.en  := io.en && io.sel(2)
 
   val binaryDecoder2bLow = new BinaryDecoder2b
   binaryDecoder2bLow.io.sel := io.sel(1 downto 0)
-  binaryDecoder2bLow.io.en := io.en && !io.sel(2)
+  binaryDecoder2bLow.io.en  := io.en && !io.sel(2)
 
   io.output := binaryDecoder2bHi.io.output ## binaryDecoder2bLow.io.output
 }
@@ -103,14 +103,14 @@ class BinaryDecoder3b extends Component {
 //
 class BinaryDecoder4b extends Component {
   val io = new Bundle {
-    val output  = out Bits(16 bits)
-    val en      = in  Bool
-    val sel     = in  Bits(4 bits)
+    val en     = in  Bool
+    val sel    = in  Bits(4 bits)
+    val output = out Bits(16 bits)
   }
 
   val binaryDecoder2bSel = new BinaryDecoder2b
   binaryDecoder2bSel.io.sel := io.sel(3 downto 2)
-  binaryDecoder2bSel.io.en := io.en
+  binaryDecoder2bSel.io.en  := io.en
 
   val enSel = binaryDecoder2bSel.io.output
 
@@ -118,7 +118,7 @@ class BinaryDecoder4b extends Component {
   val BinaryDecoder2bArray = Array.fill(width)(new BinaryDecoder2b)
   for (index <- 0 until width) {
     BinaryDecoder2bArray(index).io.sel := io.sel(1 downto 0)
-    BinaryDecoder2bArray(index).io.en := enSel(index)
+    BinaryDecoder2bArray(index).io.en  := enSel(index)
 
     val base = width * index
     io.output(base + 3 downto base) := BinaryDecoder2bArray(index).io.output
