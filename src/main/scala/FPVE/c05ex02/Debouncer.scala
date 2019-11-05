@@ -18,7 +18,7 @@ case class Debouncer(cycles: Int) extends Component {
   val tick = counter === U(limit - 1)
 
   val debouncerFsm = new StateMachine {
-    val stateInit = new State with EntryPoint
+    val stateInit         = new State with EntryPoint
     val stateLevelHigh    = new State
     val stateNegedgeDelay = new State
     val stateLevelLow     = new State
