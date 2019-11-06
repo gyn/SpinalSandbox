@@ -103,3 +103,16 @@ class DualEdgeDetectorGate extends Component {
   io.negedge := delayReg && !io.level
   io.posedge := !delayReg && io.level
 }
+
+class DualEdgeDetector extends Component {
+  val io = new Bundle {
+    val level   = in  Bool
+    val posedge = out Bool
+    val negedge = out Bool
+  }
+
+  val irEdges = io.level.edges(False)
+
+  io.posedge := irEdges.rise
+  io.negedge := irEdges.fall
+}
