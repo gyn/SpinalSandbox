@@ -96,9 +96,7 @@ class DualEdgeDetectorGate extends Component {
     val negedge = out Bool
   }
 
-  val delayReg = Reg(Bool) init(False)
-
-  delayReg := io.level
+  val delayReg = RegNext(io.level) init(False)
 
   io.negedge := delayReg && !io.level
   io.posedge := !delayReg && io.level
